@@ -28,7 +28,6 @@ build/
 .gradle
 local.properties
 *.iml
-*.hprof
 
 # node.js
 #
@@ -52,9 +51,15 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+*/fastlane/secret.json
+*/fastlane/AuthKey.p8
 
 # Bundle artifact
 *.jsbundle
 
 # CocoaPods
 /ios/Pods/
+
+.eslintcache
+.stylelintcache
+tsconfig.tsbuildinfo

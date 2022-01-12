@@ -1,6 +1,5 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
-
 platform :ios, '11.0'
 
 target 'Spiral_Alex' do
@@ -11,6 +10,8 @@ target 'Spiral_Alex' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'Spiral_AlexTests' do
     inherit! :complete
