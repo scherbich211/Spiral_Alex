@@ -10,7 +10,7 @@ import Button from '../../components/Button';
 import {useAppDispatch, useVisiability as useVisibility} from '../../hooks';
 import TouchId from '../../../assets/Image/touchID.png';
 import FaceId from '../../../assets/Image/faceID.png';
-import {ILoginStyle} from '../../types/screensStyles';
+import {ILoginStyle} from '../../types/Login';
 import {SIZES} from '../../theme';
 import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
