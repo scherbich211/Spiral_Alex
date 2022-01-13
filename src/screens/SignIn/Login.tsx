@@ -1,55 +1,56 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState} from 'react';
-import {Checkbox, TextInput, useTheme} from 'react-native-paper';
-import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
+import {TextInput, useTheme} from 'react-native-paper';
+import {View, StyleSheet, TouchableOpacity, Image, Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Controller, useForm} from 'react-hook-form';
-import {RootStackParamList, SingInStackParamList} from '../../types';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import Typography from '../../components/Typography';
 import Button from '../../components/Button';
-import {useVisiability as useVisibility} from '../../hooks';
+import {useAppDispatch, useVisiability as useVisibility} from '../../hooks';
 import TouchId from '../../../assets/Image/touchID.png';
 import FaceId from '../../../assets/Image/faceID.png';
 import {ILoginStyle} from '../../types/screensStyles';
 import {SIZES} from '../../theme';
-
-type LogScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
-
-interface Props {
-	navigation: LogScreenNavigationProp;
-}
+import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 type FormState = {
 	login: string;
 	password: string;
 };
 
-const LogIn: React.FC<Props> = (props): JSX.Element => {
+const LogIn: React.FC = (): JSX.Element => {
 	const theme = useTheme();
+	const dispatch = useAppDispatch();
 	const styles = useStyles(theme);
 	const [isVisible, visible] = useVisibility(true);
-	const [checkboxStatus, toggleCheckboxStatus] = useState<'checked' | 'unchecked'>('unchecked');
 
 	const {
 		control,
 		formState: {errors},
+		getValues,
 	} = useForm<FormState>();
 
-	const navigate = (route: keyof SingInStackParamList) => () => {
-		props.navigation.navigate(route);
-	};
-
-	const onCheckboxPress = () => {
-		toggleCheckboxStatus(state => (state === 'checked' ? 'unchecked' : 'checked'));
+	const handleLoginPress = () => {
+		if (getValues('login') === undefined || getValues('password') === undefined) {
+			Alert.alert('Wrong Input!', 'Username or password field cannot be empty', [{text: 'Okay'}]);
+		} else if (getValues('login').includes('@itechart-group.com') && getValues('password') === 'admin') {
+			const dataLogin = {
+				userName: getValues('login'),
+				password: getValues('password'),
+			};
+			dispatch(changeUserIsLoggedIn(true));
+			dispatch(changeUserInfo(dataLogin));
+		} else {
+			Alert.alert('Wrong Input!', 'Username or password field, bc u a not admin', [{text: 'Okay'}]);
+		}
 	};
 
 	return (
 		<KeyboardAwareScrollView>
 			<Layout>
 				<View style={{height: SIZES.height * 0.85}}>
-					<View style={{marginBottom: SIZES.height * 0.05}}>
+					<View style={{marginBottom: SIZES.height * 0.03, marginTop: SIZES.height * 0.05}}>
 						<Header style={styles.header}>Login</Header>
 						<View style={styles.loginUnderline} />
 					</View>
@@ -90,13 +91,7 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 						/>
 
 						<View style={{...styles.row, ...styles.centerAndBetween}}>
-							<View style={StyleSheet.flatten([styles.row, styles.centerAndBetween])}>
-								<Checkbox.Android status={checkboxStatus} onPress={onCheckboxPress} color={theme.colors.primary} />
-								<Typography fontWeight="300" element="body">
-									Remember me
-								</Typography>
-							</View>
-							<TouchableOpacity onPress={navigate('ForgotPassword')}>
+							<TouchableOpacity>
 								<Typography color={theme.colors.primary} fontWeight="400">
 									Forgot password?
 								</Typography>
@@ -106,7 +101,7 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 					<View>
 						<View style={StyleSheet.flatten([styles.row, styles.centerAndBetween, styles.buttonContainer])}>
 							<View style={styles.loginButton}>
-								<Button mode="contained" /* onPress={handleLoginPress} */ style={styles.buttonRadius}>
+								<Button mode="contained" onPress={handleLoginPress} style={styles.buttonRadius}>
 									Login
 								</Button>
 							</View>
@@ -142,6 +137,7 @@ const useStyles = StyleSheet.create(
 		centerAndBetween: {
 			justifyContent: 'space-between',
 			alignItems: 'center',
+			alignSelf: 'flex-end',
 		},
 		divider: {
 			width: '40%',
