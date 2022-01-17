@@ -1,135 +1,102 @@
 import React from 'react';
 
-import { View } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
-import styles from './style';
-
-export const dollars11 = [63, 17, 1200, 320];
-export const cents11 = [95, 75, 50, 73];
-
-export const list11 = [
-	{
-		title: 'Target',
-		subtitle: 'Closter NJ | Debit card',
-		dollars: `$${dollars11[0]}`,
-		cents: `.${cents11[0]}`,
-	},
-	{
-		title: 'AplPay 7-Eleven',
-		subtitle: 'Cresskill NJ | iPhone',
-		dollars: `$${dollars11[1]}`,
-		cents: `.${cents11[1]}`,
-	},
-	{
-		title: 'Facebook inc',
-		subtitle: 'Pay day! Yay!',
-		dollars: `$${dollars11[2]}`,
-		cents: `.${cents11[2]}`,
-	},
-	{
-		title: 'Lencrafters',
-		subtitle: 'Paramus NJ | Debit card',
-		dollars: `$${dollars11[3]}`,
-		cents: `.${cents11[3]}`,
-	},
-];
-
-export const dollars10 = [10000, 12, 236, 320];
-export const cents10 = [0, 2, 52, 73];
-
-export const list10 = [
-	{
-		title: 'Transfer from savings',
-		subtitle: 'Buy a house (...4044)',
-		dollars: `$${dollars10[0]}`,
-		cents: `.${cents10[0]}`,
-	},
-	{
-		title: 'Starbucks',
-		subtitle: 'Closter NJ | Debit card',
-		dollars: `$${dollars10[1]}`,
-		cents: `.${cents10[1]}`,
-	},
-	{
-		title: 'Stop and Shop',
-		subtitle: 'Closter NJ | Debit card',
-		dollars: `$${dollars10[2]}`,
-		cents: `.${cents10[2]}`,
-	},
-	{
-		title: 'Lencrafters',
-		subtitle: 'Paramus NJ | Debit card',
-		dollars: `$${dollars10[3]}`,
-		cents: `.${cents10[3]}`,
-	},
-];
+import {StyleSheet, View} from 'react-native';
+import {ListItem, Avatar} from 'react-native-elements';
+import {useTheme} from 'react-native-paper';
+import {ICheckingListStyles} from '../../../../types/checking';
+import {list10, list11} from '../../../../utils/mockLists';
+import Birthday from '../../../../../assets/Image/confetti2.png';
 
 export const ListOfJul11 = () => {
-return (
-	<View>
-		{list11.map((item, i) => (
-      <ListItem key={i} bottomDivider containerStyle={{borderRadius: 10}}>
-				{item.title === 'Facebook inc' ? <Avatar source={require('../../../../../assets/Image/email.png')} /> : null}
-				<ListItem.Content>
-					<View style={{ flexDirection: 'row' }}>
-						<View style={{ maxWidth: 190 }}>
-							{item.title === 'Facebook inc' ? (
-								<View>
-									<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-										<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={{ marginRight: 5, color: '#62CA88' }}>
-											{item.title}
-										</ListItem.Title>
+	const theme = useTheme();
+	const styles = useStyles(theme);
+	return (
+		<View>
+			{list11.map(item => (
+				<ListItem
+					key={item.id}
+					bottomDivider
+					containerStyle={styles.borderRadius10}
+					hasTVPreferredFocus={undefined}
+					tvParallaxProperties={undefined}>
+					{item.title === 'Facebook inc' ? <Avatar source={Birthday} /> : null}
+					<ListItem.Content>
+						<View style={styles.flexRow}>
+							<View style={styles.width190}>
+								{item.title === 'Facebook inc' ? (
+									<View>
+										<View style={StyleSheet.flatten([styles.flexRow, styles.alignCenter])}>
+											<ListItem.Title
+												numberOfLines={1}
+												ellipsizeMode="tail"
+												style={StyleSheet.flatten([styles.marginRight5, styles.colorGreen])}>
+												{item.title}
+											</ListItem.Title>
+										</View>
+										<ListItem.Subtitle style={styles.colorGreen} numberOfLines={1} ellipsizeMode="tail">
+											{item.subtitle}
+										</ListItem.Subtitle>
 									</View>
-									<ListItem.Subtitle style={{ color: '#62CA88' }} numberOfLines={1} ellipsizeMode="tail">
-										{item.subtitle}
-									</ListItem.Subtitle>
+								) : (
+									<View>
+										<View style={StyleSheet.flatten([styles.flexRow, styles.alignCenter])}>
+											<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={styles.marginRight5}>
+												{item.title}
+											</ListItem.Title>
+										</View>
+										<ListItem.Subtitle style={styles.littleGreyText} numberOfLines={1} ellipsizeMode="tail">
+											{item.subtitle}
+										</ListItem.Subtitle>
+									</View>
+								)}
+							</View>
+							{item.title === 'Facebook inc' ? (
+								<View style={styles.listMoney}>
+									<ListItem.Title style={StyleSheet.flatten([styles.fontSize25, styles.colorGreen])}>
+										{item.dollars}
+									</ListItem.Title>
+									<ListItem.Title style={StyleSheet.flatten([styles.fontSize20, styles.colorGreen])}>
+										{item.cents}
+									</ListItem.Title>
 								</View>
 							) : (
-								<View>
-									<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-										<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={{ marginRight: 5 }}>
-											{item.title}
-										</ListItem.Title>
-									</View>
-									<ListItem.Subtitle style={styles.littleGreyText} numberOfLines={1} ellipsizeMode="tail">
-										{item.subtitle}
-									</ListItem.Subtitle>
+								<View style={styles.listMoney}>
+									<ListItem.Title style={styles.fontSize25}>{item.dollars}</ListItem.Title>
+									<ListItem.Title style={styles.fontSize20}>{item.cents}</ListItem.Title>
 								</View>
 							)}
 						</View>
-						{item.title === 'Facebook inc' ? (
-							<View style={styles.listMoney}>
-								<ListItem.Title style={{ fontSize: 25, color: '#62CA88' }}>{item.dollars}</ListItem.Title>
-								<ListItem.Title style={{ fontSize: 20, color: '#62CA88' }}>{item.cents}</ListItem.Title>
-							</View>
-						) : (
-							<View style={styles.listMoney}>
-								<ListItem.Title style={{ fontSize: 25 }}>{item.dollars}</ListItem.Title>
-								<ListItem.Title style={{ fontSize: 20 }}>{item.cents}</ListItem.Title>
-							</View>
-						)}
-					</View>
-				</ListItem.Content>
-			</ListItem>
-		))}
-	</View>
-);
+					</ListItem.Content>
+				</ListItem>
+			))}
+		</View>
+	);
 };
 export const ListOfJul10 = () => {
+	const theme = useTheme();
+	const styles = useStyles(theme);
 	return (
 		<View>
-			{list10.map((item, i) => (
-				<ListItem key={i} bottomDivider containerStyle={{ borderRadius: 10 }}>
+			{list10.map(item => (
+				<ListItem
+					key={item.id}
+					bottomDivider
+					containerStyle={styles.borderRadius10}
+					hasTVPreferredFocus={undefined}
+					tvParallaxProperties={undefined}>
 					<ListItem.Content>
-						<View style={{ flexDirection: 'row' }}>
-							<View style={{ maxWidth: 190 }}>
-								<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View style={styles.flexRow}>
+							<View style={styles.width190}>
+								<View style={styles.flexRow}>
 									{item.title === 'Transfer from savings' ? (
-										<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={{ marginRight: 5, color: '#62CA88' }}>
+										<ListItem.Title
+											numberOfLines={1}
+											ellipsizeMode="tail"
+											style={StyleSheet.flatten([styles.marginRight5, styles.colorGreen])}>
 											{item.title}
 										</ListItem.Title>
 									) : (
-										<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={{ marginRight: 5 }}>
+										<ListItem.Title numberOfLines={1} ellipsizeMode="tail" style={styles.marginRight5}>
 											{item.title}
 										</ListItem.Title>
 									)}
@@ -140,13 +107,17 @@ export const ListOfJul10 = () => {
 							</View>
 							{item.title === 'Transfer from savings' ? (
 								<View style={styles.listMoney}>
-									<ListItem.Title style={{ fontSize: 25, color: '#62CA88' }}>{item.dollars}</ListItem.Title>
-									<ListItem.Title style={{ fontSize: 20, color: '#62CA88' }}>{item.cents}</ListItem.Title>
+									<ListItem.Title style={StyleSheet.flatten([styles.fontSize25, styles.colorGreen])}>
+										{item.dollars}
+									</ListItem.Title>
+									<ListItem.Title style={StyleSheet.flatten([styles.fontSize20, styles.colorGreen])}>
+										{item.cents}
+									</ListItem.Title>
 								</View>
 							) : (
 								<View style={styles.listMoney}>
-									<ListItem.Title style={{ fontSize: 25 }}>{item.dollars}</ListItem.Title>
-									<ListItem.Title style={{ fontSize: 20 }}>{item.cents}</ListItem.Title>
+									<ListItem.Title style={styles.fontSize25}>{item.dollars}</ListItem.Title>
+									<ListItem.Title style={styles.fontSize20}>{item.cents}</ListItem.Title>
 								</View>
 							)}
 						</View>
@@ -156,3 +127,51 @@ export const ListOfJul10 = () => {
 		</View>
 	);
 };
+
+const useStyles = StyleSheet.create(
+	(theme: ReactNativePaper.Theme): ICheckingListStyles => ({
+		title: {
+			color: 'white',
+			fontWeight: 'bold',
+			fontSize: 20,
+			alignSelf: 'center',
+		},
+		subtitle: {
+			color: 'white',
+			fontSize: 10,
+		},
+		totalAvailableCash: {
+			alignSelf: 'center',
+			color: 'grey',
+			marginTop: 3,
+			fontSize: 17,
+			fontWeight: '300',
+		},
+		moneyBig: {
+			fontSize: 40,
+			alignSelf: 'center',
+			fontWeight: '300',
+		},
+		moneyLittle: {
+			fontSize: 30,
+			alignSelf: 'center',
+		},
+		littleGreyText: {
+			color: 'grey',
+		},
+		listMoney: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'flex-end',
+			flex: 1,
+		},
+		borderRadius10: {borderRadius: 10},
+		flexRow: {flexDirection: 'row'},
+		width190: {maxWidth: '50%'},
+		alignCenter: {alignItems: 'center'},
+		marginRight5: {marginRight: 5},
+		colorGreen: {color: theme.colors.accent},
+		fontSize25: {fontSize: 25},
+		fontSize20: {fontSize: 20},
+	}),
+);

@@ -2,37 +2,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useTheme} from 'react-native-paper';
-import {IListData, IListStyle} from '../../../../types/home';
-
-export const dollars = [1500, 5000, 500];
-export const cents = [20, 20, 40];
-
-export const list: IListData[] = [
-	{
-		id: 1,
-		title: 'Checking',
-		subtitle: 'Main account (...0353)',
-		icon: 'arrow-forward',
-		dollars: `$${dollars[0]}`,
-		cents: `.${cents[0]}`,
-	},
-	{
-		id: 2,
-		title: 'Savings',
-		subtitle: 'Buy a house (...4044)',
-		icon: 'arrow-forward',
-		dollars: `$${dollars[1]}`,
-		cents: `.${cents[1]}`,
-	},
-	{
-		id: 3,
-		title: 'Goodness',
-		subtitle: 'Cash Rewards',
-		icon: 'arrow-forward',
-		dollars: `$${dollars[2]}`,
-		cents: `.${cents[2]}`,
-	},
-];
+import {IListStyle} from '../../../../types/home';
+import {IListData, list} from '../../../../utils/mockLists';
 
 interface IProps {
 	cardsScreens: (screen: IListData) => () => void;

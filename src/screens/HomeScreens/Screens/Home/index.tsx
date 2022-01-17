@@ -16,8 +16,9 @@ import {
 } from './ComponentsForHome';
 import TabHeader from '../../../../components/Header/TabHeader';
 import UserAvatar from '../../../../components/UserAvatar';
-import {IHomeScreenStyles, IListData} from '../../../../types/home';
+import {IHomeScreenStyles} from '../../../../types/home';
 import {RootStackParamList} from '../../../../types';
+import {IListData} from '../../../../utils/mockLists';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 

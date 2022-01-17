@@ -1,5 +1,4 @@
 import {ViewStyle, TextStyle, ImageStyle} from 'react-native';
-import {RootStackParamList} from '.';
 
 export interface ComponentsForHomeStyles {
 	headerPartsContainer: ViewStyle;
@@ -35,12 +34,4 @@ export interface IListStyle {
 	row: ViewStyle;
 	littleGreyText: TextStyle;
 	listMoney: ViewStyle;
-}
-export interface IListData {
-	id: number;
-	title: keyof RootStackParamList;
-	subtitle: string;
-	icon: string;
-	dollars: string;
-	cents: string;
 }

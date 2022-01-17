@@ -2,10 +2,10 @@ import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
-import {dollars, cents} from './List';
 import Typography from '../../../../components/Typography';
 import {ComponentsForHomeStyles} from '../../../../types/home';
 import ChildrenImage from '../../../../../assets/Image/rectangle2.png';
+import {dollars, cents} from '../../../../utils/mockLists';
 
 export const HeaderPartsContainer = () => {
 	const theme = useTheme();
