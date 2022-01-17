@@ -33,7 +33,7 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 	};
 
 	return (
-		<View>
+		<View style={styles.mainView}>
 			<StatusBar barStyle="dark-content" />
 			<TabHeader
 				beforeText={
@@ -89,6 +89,7 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 
 const useStyles = StyleSheet.create(
 	(): IAccountsStyle => ({
+		mainView: {flex: 1},
 		totalAvailableCash: {
 			alignSelf: 'center',
 			color: 'grey',

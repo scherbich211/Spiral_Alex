@@ -1,6 +1,7 @@
 import {ViewStyle, TextStyle, ImageStyle} from 'react-native';
 
 export interface IAccountsStyle {
+	mainView: ViewStyle;
 	totalAvailableCash: TextStyle;
 	moneyBig: TextStyle;
 	moneyLittle: TextStyle;
