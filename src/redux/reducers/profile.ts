@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { IProfile } from '../../types/profileReducer';
+import {IProfile} from '../../types/profileReducer';
 
 const initialState: IProfile = {
 	userInfo: {
 		name: '',
 		birth: '',
 	},
-	avatar: '',
+	avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
 	darkMode: false,
 };
 
@@ -32,11 +32,6 @@ export const profileSlice = createSlice({
 
 const {actions, reducer} = profileSlice;
 
-export const {
-	clearProfileInfo,
-	changeAvatarRedux,
-	changeDarkMode,
-	changeProfileInfo
-} = actions;
+export const {clearProfileInfo, changeAvatarRedux, changeDarkMode, changeProfileInfo} = actions;
 
 export default reducer;

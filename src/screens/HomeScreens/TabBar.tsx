@@ -6,13 +6,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useTheme} from 'react-native-paper';
-import HomeStackScreen from './Screens/Home/index';
-import AccountsStackScreen from './Screens/Accounts/index';
-import GivingStackScreen from './Screens/Giving/index';
-import CardsStackScreen from './Screens/Cards/index';
+import HomeStackScreen from './TabBarScreens/Home/index';
+import AccountsStackScreen from './TabBarScreens/Accounts/index';
+import GivingStackScreen from './TabBarScreens/Giving/index';
+import CardsStackScreen from './TabBarScreens/Cards/index';
 import {SIZES} from '../../theme';
 import {TabBarStackParamList} from '../../types';
-import PaymentsScreen from './Screens/Payments/index';
+import PaymentsScreen from './TabBarScreens/Payments/index';
 
 export interface TabBarStyles {
 	imageTabBar?: ImageStyle;

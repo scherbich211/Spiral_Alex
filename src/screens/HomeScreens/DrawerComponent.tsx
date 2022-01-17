@@ -12,7 +12,6 @@ import {clearProfileInfo} from '../../redux/reducers/profile';
 import {changeUserIsLoggedIn, clearUserInfo} from '../../redux/reducers/user';
 import Pidor from '../../../assets/Image/pidor.png';
 
-// JSX.IntrinsicAttributes & ScrollViewProps & {children: React.ReactNode} & React.RefAttributes<ScrollView>
 export const DrawerContent = (props: DrawerContentComponentProps) => {
 	const theme = useTheme();
 	const dispatch = useAppDispatch();

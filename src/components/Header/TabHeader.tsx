@@ -1,9 +1,14 @@
 import React from 'react';
-import {Platform, StyleSheet, TextStyle, View} from 'react-native';
+import {Platform, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 import {Appbar, useTheme} from 'react-native-paper';
 import Typography from '../Typography';
 import {SIZES} from '../../theme';
 
+interface IStyle {
+	headerView: ViewStyle;
+	headerText: TextStyle;
+	headerBeforeView: ViewStyle;
+}
 interface Props {
 	headerText?: string;
 	children?: React.ReactNode;
@@ -13,6 +18,8 @@ interface Props {
 
 const TabHeader: React.FC<Props> = props => {
 	const theme = useTheme();
+	const {headerText} = props;
+	const styles = useStyles(headerText || 'no Name');
 	return (
 		<Appbar.Header
 			theme={{
@@ -40,25 +47,26 @@ const TabHeader: React.FC<Props> = props => {
 	);
 };
 
-const styles = StyleSheet.create({
-	headerView: {
-		alignItems: 'center',
-		elevation: 2,
-		zIndex: 2,
-	},
-	headerText: {
-		fontWeight: '700',
-		marginLeft: SIZES.width * 0.3,
-		fontSize: Platform.OS === 'ios' ? 18 : 17,
-		letterSpacing: Platform.OS === 'ios' ? 1 : 0.8,
-		color: 'white',
-		// textTransform: 'uppercase',
-	},
-	headerBeforeView: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		flex: 1,
-	},
-});
+const useStyles = StyleSheet.create(
+	(headerText: string): IStyle => ({
+		headerView: {
+			alignItems: 'center',
+			elevation: 2,
+			zIndex: 2,
+		},
+		headerText: {
+			fontWeight: '700',
+			marginLeft: headerText.length > 6 ? SIZES.width * 0.25 : SIZES.width * 0.3,
+			fontSize: Platform.OS === 'ios' ? 18 : 17,
+			letterSpacing: Platform.OS === 'ios' ? 1 : 0.8,
+			color: 'white',
+		},
+		headerBeforeView: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			flex: 1,
+		},
+	}),
+);
 
 export default TabHeader;

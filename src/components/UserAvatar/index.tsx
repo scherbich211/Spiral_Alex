@@ -4,6 +4,9 @@ import {TouchableWithoutFeedback, StyleSheet, Modal, Platform, View} from 'react
 import {Avatar, ListItem} from 'react-native-elements';
 
 import avatarImage from '../../../assets/Image/pidor.png';
+import {useAppDispatch} from '../../hooks';
+import {clearProfileInfo} from '../../redux/reducers/profile';
+import {clearUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 const styles = StyleSheet.create({
 	userMenuContent: {
@@ -14,21 +17,28 @@ const styles = StyleSheet.create({
 	},
 	userMenuOverlay: StyleSheet.absoluteFillObject,
 });
-const UserAvatar = ({navig, able}) => {
+
+interface IProps {
+	navig: () => void;
+}
+const UserAvatar: React.FC<IProps> = props => {
+	const dispatch = useAppDispatch();
 	const [userMenuVisible, setUserMenuVisible] = useState(false);
 
 	const hideUserMenu = () => {
 		setUserMenuVisible(false);
 	};
 	const showUserMenu = () => {
-		if (able === true) {
-			setUserMenuVisible(true);
-		}
+		setUserMenuVisible(true);
 	};
 
-	const SignOut = () => {};
+	const SignOut = () => {
+		dispatch(clearProfileInfo);
+		dispatch(clearUserInfo);
+		dispatch(changeUserIsLoggedIn(false));
+	};
 	const Profile = () => {
-		navig();
+		props.navig();
 	};
 
 	return (

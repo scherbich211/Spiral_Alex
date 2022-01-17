@@ -106,3 +106,73 @@ export const list10 = [
 		cents: `.${cents10[3]}`,
 	},
 ];
+
+export const listSavings = [
+	{
+		id: 1,
+		title: 'End day balance - Jul 11',
+		dollars: '$10,000',
+	},
+	{
+		id: 2,
+		title: 'Deposit',
+		subtitle: 'Jul 11',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 3,
+		title: 'Deposit',
+		subtitle: 'Jul 11',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 4,
+		title: 'Deposit',
+		subtitle: 'Jul 11',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 5,
+		title: 'Deposit',
+		subtitle: 'Jul 11',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 6,
+		title: 'Deposit',
+		subtitle: 'Jul 11',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 7,
+		title: 'End day balance - Jul 10',
+		dollars: '$3,000',
+		cents: '.00',
+	},
+	{
+		id: 8,
+		title: 'Deposit',
+		subtitle: 'Jul 10',
+		dollars: '$2,000',
+		cents: '.00',
+	},
+	{
+		id: 9,
+		title: 'Deposit',
+		subtitle: 'Jul 10',
+		dollars: '$500',
+		cents: '.00',
+	},
+	{
+		id: 10,
+		title: 'Deposit',
+		subtitle: 'Jul 10',
+		dollars: '$500',
+		cents: '.00',
+	},
+];

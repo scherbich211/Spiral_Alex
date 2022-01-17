@@ -7,6 +7,7 @@ export type DrawerStackParamList = {
 	Checking: undefined;
 	Savings: undefined;
 	Goodness: undefined;
+	Profile: undefined;
 };
 
 export type TabBarStackParamList = {

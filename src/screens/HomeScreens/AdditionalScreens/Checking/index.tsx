@@ -56,9 +56,9 @@ const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 						/>
 					</View>
 				}
-				headerText="Spiral">
+				headerText="Checking">
 				<View style={styles.marginRight10}>
-					<UserAvatar navig={navig} able={true} />
+					<UserAvatar navig={navig} />
 				</View>
 			</TabHeader>
 			<FlatList

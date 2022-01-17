@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import * as React from 'react';
 import {LayoutChangeEvent, StyleSheet, TextStyle} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';

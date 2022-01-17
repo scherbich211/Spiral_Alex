@@ -46,9 +46,9 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 						/>
 					</View>
 				}
-				headerText="Spiral">
+				headerText="Accounts">
 				<View style={styles.marginRight10}>
-					<UserAvatar navig={navig} able={true} />
+					<UserAvatar navig={navig} />
 				</View>
 			</TabHeader>
 			<KeyboardAwareScrollView>

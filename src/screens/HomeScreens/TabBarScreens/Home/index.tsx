@@ -30,19 +30,14 @@ const HomeScreen: React.FC<IProps> = props => {
 	const theme = useTheme();
 	const styles = useStyles();
 	const navig = () => {
-		props.navigation.navigate('Cards'); // Profile
+		props.navigation.navigate('Profile');
 	};
 	const navigate = (screen: IListData) => () => {
-		props.navigation.navigate(
-			screen.title /* , {
-			title: screen.title,
-			subtitle: screen.subtitle,
-		} */,
-		);
+		props.navigation.navigate(screen.title);
 	};
 
 	return (
-		<View>
+		<View style={styles.mainView}>
 			<StatusBar barStyle="dark-content" />
 			<TabHeader
 				beforeText={
@@ -57,7 +52,7 @@ const HomeScreen: React.FC<IProps> = props => {
 				}
 				headerText="Spiral">
 				<View style={styles.marginRight10}>
-					<UserAvatar navig={navig} able={true} />
+					<UserAvatar navig={navig} />
 				</View>
 			</TabHeader>
 			<KeyboardAwareScrollView>
@@ -83,6 +78,7 @@ const HomeScreen: React.FC<IProps> = props => {
 
 const useStyles = StyleSheet.create(
 	(): IHomeScreenStyles => ({
+		mainView: {flex: 1},
 		container: {
 			margin: 10,
 		},

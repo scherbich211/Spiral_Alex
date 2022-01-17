@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { IUser } from '../../types/userReducer';
+import {IUser} from '../../types/userReducer';
 
 const initialState: IUser = {
 	isLoggedIn: false,
 	login: {
 		userName: '',
 		password: '',
-	}
+	},
 };
 
 export const userSlice = createSlice({
@@ -29,10 +29,6 @@ export const userSlice = createSlice({
 
 const {actions, reducer} = userSlice;
 
-export const {
-	changeUserIsLoggedIn,
-	changeUserInfo,
-	clearUserInfo
-} = actions;
+export const {changeUserIsLoggedIn, changeUserInfo, clearUserInfo} = actions;
 
 export default reducer;

@@ -18,6 +18,7 @@ export interface ComponentsForHomeStyles {
 }
 
 export interface IHomeScreenStyles {
+	mainView: ViewStyle;
 	container: ViewStyle;
 	partsContainer: ViewStyle;
 	marginRight10: ViewStyle;
