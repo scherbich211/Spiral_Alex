@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
-import UserAvatar from '../../UserAvatar/index';
+import UserAvatar from '../../../../components/UserAvatar/index';
 import CustomHeader from '../../CustomHeader/index';
 import styles from './style';
 import Checking from './Checking';

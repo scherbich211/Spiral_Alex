@@ -1,8 +1,8 @@
-import {ViewStyle, TextStyle} from 'react-native';
+import {ViewStyle, TextStyle, ImageStyle} from 'react-native';
+import {RootStackParamList} from '.';
 
 export interface ComponentsForHomeStyles {
 	headerPartsContainer: ViewStyle;
-	TypographyHeaderPartsContainer: ViewStyle;
 	impactHeaderPartsContainer: TextStyle;
 	rowAndCenter: ViewStyle;
 	greyTypographyHeaderPartsContainer: TextStyle;
@@ -15,4 +15,32 @@ export interface ComponentsForHomeStyles {
 	totalAvailableCashBig: TextStyle;
 	totalAvailableCashLittle: TextStyle;
 	wight: TextStyle;
+	imageWidth: ImageStyle;
+}
+
+export interface IHomeScreenStyles {
+	container: ViewStyle;
+	partsContainer: ViewStyle;
+	marginRight10: ViewStyle;
+	marginTop10: ViewStyle;
+}
+export interface IListStyle {
+	title: TextStyle;
+	subtitle: TextStyle;
+	fontSize25: TextStyle;
+	fontSize20: TextStyle;
+	marginRight5: ViewStyle;
+	rowCenter: ViewStyle;
+	width190: ViewStyle;
+	row: ViewStyle;
+	littleGreyText: TextStyle;
+	listMoney: ViewStyle;
+}
+export interface IListData {
+	id: number;
+	title: keyof RootStackParamList;
+	subtitle: string;
+	icon: string;
+	dollars: string;
+	cents: string;
 }

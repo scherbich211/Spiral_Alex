@@ -1,15 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {View, Image, TouchableOpacity, StatusBar, Text, FlatList} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import {View, StatusBar, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-// import Video from 'react-native-video';
-import UserAvatar from '../../UserAvatar/index';
-
-import styles from './style/style';
-
+import {useTheme} from 'react-native-paper';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {DrawerActions} from '@react-navigation/native';
 import {ListOf} from './List';
-
 import {
 	ButtonShare,
 	DateNow,
@@ -18,113 +14,85 @@ import {
 	ImpactText,
 	TotalAvailableCash,
 } from './ComponentsForHome';
+import TabHeader from '../../../../components/Header/TabHeader';
+import UserAvatar from '../../../../components/UserAvatar';
+import {IHomeScreenStyles, IListData} from '../../../../types/home';
+import {RootStackParamList} from '../../../../types';
 
-const HomeScreen = ({navigation}) => {
-	// --------------------------------------------------------------
-	const data = [
-		{
-			data: 'someData',
-		},
-	];
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
-	const renderItem = ({item}) => (
-		<View style={{flex: 1}}>
-			<StatusBar backgroundColor="#C81A7C" />
-			<View style={styles.container}>
-				<View style={styles.partsContainer}>
-					<TotalAvailableCash navigateCards={navigateCards} />
-					<View style={{marginTop: 10}}>
-						<ListOf cardsScreens={navigate} />
+interface IProps {
+	navigation: HomeScreenNavigationProp;
+}
+
+const HomeScreen: React.FC<IProps> = props => {
+	const theme = useTheme();
+	const styles = useStyles();
+	const navig = () => {
+		props.navigation.navigate('Cards'); // Profile
+	};
+	const navigate = (screen: IListData) => () => {
+		props.navigation.navigate(
+			screen.title /* , {
+			title: screen.title,
+			subtitle: screen.subtitle,
+		} */,
+		);
+	};
+
+	return (
+		<View>
+			<StatusBar barStyle="dark-content" />
+			<TabHeader
+				beforeText={
+					<View>
+						<Icon.Button
+							name="ios-menu"
+							size={25}
+							backgroundColor={theme.colors.primary}
+							onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
+						/>
 					</View>
+				}
+				headerText="Spiral">
+				<View style={styles.marginRight10}>
+					<UserAvatar navig={navig} able={true} />
 				</View>
-				<View style={styles.partsContainer}>
-					<HeaderPartsContainer />
-					<ImageChildren />
-					<ImpactText />
-					<ButtonShare />
-				</View>
-				<View style={styles.partsContainer}>
-					<TouchableOpacity
-						onPress={() => {
-							navigateVideo();
-						}}>
-						<HeaderPartsContainer />
-						<View style={styles.ImageOrVideoPartsContainer}>
-							{/* <Video source={videoURL} style={styles.videoNormal} muted={videoProps.music} paused={videoProps.paused} /> */}
-							<View>
-								<View style={styles.buttonMusic}>
-									<Icon.Button
-										name={videoProps.iconMusic}
-										size={25}
-										color="white"
-										backgroundColor="transparent"
-										onPress={MusicVolume}
-									/>
-								</View>
-							</View>
+			</TabHeader>
+			<KeyboardAwareScrollView>
+				<DateNow />
+				<View style={styles.container}>
+					<View style={styles.partsContainer}>
+						<TotalAvailableCash />
+						<View style={styles.marginTop10}>
+							<ListOf cardsScreens={navigate} />
 						</View>
+					</View>
+					<View style={styles.partsContainer}>
+						<HeaderPartsContainer />
+						<ImageChildren />
 						<ImpactText />
 						<ButtonShare />
-					</TouchableOpacity>
+					</View>
 				</View>
-			</View>
-		</View>
-	);
-	return (
-		<View style={styles.screenView}>
-			<FlatList
-				data={data}
-				keyExtractor={(item, index) => index.toString()}
-				renderItem={renderItem}
-				ListHeaderComponent={<DateNow />}
-				ListHeaderComponentStyle={{margin: 10}}
-			/>
+			</KeyboardAwareScrollView>
 		</View>
 	);
 };
 
-const HomeStack = createStackNavigator();
+const useStyles = StyleSheet.create(
+	(): IHomeScreenStyles => ({
+		container: {
+			margin: 10,
+		},
+		partsContainer: {
+			backgroundColor: 'white',
+			borderRadius: 5,
+			marginBottom: 20,
+		},
+		marginRight10: {marginRight: 10},
+		marginTop10: {marginTop: 10},
+	}),
+);
 
-const HomeStackScreen = ({navigation}) => {
-	const navig = () => {
-		navigation.navigate('Profile');
-	};
-	return (
-		<HomeStack.Navigator
-			screenOptions={{
-				headerStyle: {
-					backgroundColor: '#C81A7C',
-				},
-			}}>
-			<HomeStack.Screen
-				name="Home"
-				component={HomeScreen}
-				options={{
-					headerLeft: () => (
-						<View>
-							<Icon.Button
-								name="ios-menu"
-								size={25}
-								backgroundColor="#C81A7C"
-								onPress={() => navigation.openDrawer()}
-							/>
-						</View>
-					),
-					headerTitle: () => (
-						<View style={styles.topBar}>
-							<Image source={require('../../../../../assets/Image/email.png')} style={styles.topBarImage} />
-							<Text style={styles.topBarText}>Spiral</Text>
-						</View>
-					),
-					headerRight: () => (
-						<View style={{marginRight: 10}}>
-							<UserAvatar navig={navig} able={true} />
-						</View>
-					),
-				}}
-			/>
-		</HomeStack.Navigator>
-	);
-};
-
-export default HomeStackScreen;
+export default HomeScreen;

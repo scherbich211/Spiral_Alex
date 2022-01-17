@@ -9,10 +9,10 @@ import {useTheme} from 'react-native-paper';
 import HomeStackScreen from './Screens/Home/index';
 import AccountsStackScreen from './Screens/Accounts/index';
 import GivingStackScreen from './Screens/Giving/index';
-import PaymentsStackScreen from './Screens/Payments/index';
 import CardsStackScreen from './Screens/Cards/index';
 import {SIZES} from '../../theme';
 import {TabBarStackParamList} from '../../types';
+import PaymentsScreen from './Screens/Payments/index';
 
 export interface TabBarStyles {
 	imageTabBar?: ImageStyle;
@@ -79,7 +79,7 @@ const TabNavigator = () => {
 			/>
 			<Tab.Screen
 				name="Payments"
-				component={PaymentsStackScreen}
+				component={PaymentsScreen}
 				options={{
 					tabBarIcon: ({focused}) => (
 						<IconMaterial

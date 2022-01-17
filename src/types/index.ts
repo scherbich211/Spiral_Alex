@@ -3,15 +3,10 @@ export type SingInStackParamList = {
 };
 
 export type DrawerStackParamList = {
-	HomeDrawer: undefined;
+	HomeDrawer: TabBarStackParamList;
 	Checking: undefined;
 	Savings: undefined;
-};
-
-export type StepperStackParamList = {
-	RootScreen: undefined;
-	Stepper: undefined;
-	GreatJob: undefined;
+	Goodness: undefined;
 };
 
 export type TabBarStackParamList = {
@@ -26,6 +21,7 @@ export type RootStackParamList = {
 	SignIn: undefined;
 	DrawerNavigator: undefined;
 } & SingInStackParamList &
-	DrawerStackParamList;
+	DrawerStackParamList &
+	TabBarStackParamList;
 
 export type ErrorCustom = {errorMessage: string};

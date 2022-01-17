@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import {View, TouchableOpacity, StyleSheet, Text, Image} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
 import {dollars, cents} from './List';
 import Typography from '../../../../components/Typography';
-import {ComponentsForHomeStyles} from '../../../../types/Home';
+import {ComponentsForHomeStyles} from '../../../../types/home';
+import ChildrenImage from '../../../../../assets/Image/rectangle2.png';
 
 export const HeaderPartsContainer = () => {
 	const theme = useTheme();
@@ -12,27 +13,27 @@ export const HeaderPartsContainer = () => {
 
 	return (
 		<View style={styles.headerPartsContainer}>
-			<View style={styles.TypographyHeaderPartsContainer}>
-				<Typography style={styles.impactHeaderPartsContainer}>Your Giving Impact</Typography>
-				<View style={styles.rowAndCenter}>
-					<Typography style={styles.greyTypographyHeaderPartsContainer}>St Jude</Typography>
-					<View style={styles.dot} />
-					<Typography style={styles.greyTypographyHeaderPartsContainer}>4 hrs ago</Typography>
-				</View>
+			<Typography style={styles.impactHeaderPartsContainer}>Your Giving Impact</Typography>
+			<View style={styles.rowAndCenter}>
+				<Typography style={styles.greyTypographyHeaderPartsContainer}>St Jude</Typography>
+				<View style={styles.dot} />
+				<Typography style={styles.greyTypographyHeaderPartsContainer}>4 hrs ago</Typography>
 			</View>
 		</View>
 	);
 };
 
 export const ImageChildren = () => {
+	const theme = useTheme();
+	const styles = useStyles(theme);
 	return (
 		<View>
-			<Typography>here must be children</Typography>
+			<Image source={ChildrenImage} style={styles.imageWidth} />
 		</View>
 	);
 };
 
-export const ImpactTypography = () => {
+export const ImpactText = () => {
 	const theme = useTheme();
 	const styles = useStyles(theme);
 
@@ -51,9 +52,9 @@ export const ButtonShare = () => {
 
 	return (
 		<View>
-			<TouchableOpacity style={StyleSheet.flatten([styles.shareButton, styles.rowAndCenter])}>
-				<Fontisto name="share-a" size={25} />
-				<Typography style={styles.shareButtonText}>Share to spread the word</Typography>
+			<TouchableOpacity style={styles.shareButton}>
+				<MaterialCommunityIcons name="share" color="white" size={26} />
+				<Text style={styles.shareButtonText}>Share to spread the word </Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -63,7 +64,11 @@ export const DateNow = () => {
 	const theme = useTheme();
 	const styles = useStyles(theme);
 
-	return <Typography style={styles.date}>{/* {currentTime} Danny | {currentDate} */}asda</Typography>;
+	return (
+		<Typography style={styles.date}>
+			Hello Danny || Today is {new Date().getDate()}.{new Date().getMonth() + 1}.{new Date().getFullYear()}
+		</Typography>
+	);
 };
 
 export const TotalAvailableCash = () => {
@@ -85,12 +90,9 @@ export const TotalAvailableCash = () => {
 const useStyles = StyleSheet.create(
 	(theme: ReactNativePaper.Theme): ComponentsForHomeStyles => ({
 		headerPartsContainer: {
-			margin: 10,
-			flexDirection: 'row',
-			alignItems: 'center',
-		},
-		TypographyHeaderPartsContainer: {
-			marginLeft: 15,
+			margin: 15,
+			flexDirection: 'column',
+			alignItems: 'flex-start',
 		},
 		impactHeaderPartsContainer: {
 			fontSize: 16,
@@ -119,8 +121,10 @@ const useStyles = StyleSheet.create(
 			alignSelf: 'center',
 			borderColor: '#CB1961',
 			borderRadius: 50,
-			backgroundColor: '#CB1961',
+			backgroundColor: theme.colors.primary,
 			alignItems: 'center',
+			justifyContent: 'center',
+			flexDirection: 'row',
 			marginBottom: 15,
 		},
 		shareButtonText: {
@@ -130,7 +134,7 @@ const useStyles = StyleSheet.create(
 			marginLeft: 5,
 		},
 		date: {
-			paddingBottom: 10,
+			margin: 10,
 		},
 		totalAvailableCash: {
 			alignSelf: 'center',
@@ -140,6 +144,7 @@ const useStyles = StyleSheet.create(
 		},
 		totalAvailableCashBig: {fontSize: 25, alignSelf: 'center'},
 		totalAvailableCashLittle: {fontSize: 20, alignSelf: 'center'},
-		wight: {fontWeight: '300'},
+		wight: {fontWeight: '400', fontSize: 16, letterSpacing: 0.5},
+		imageWidth: {width: '100%'},
 	}),
 );

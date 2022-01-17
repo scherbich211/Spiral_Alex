@@ -3,7 +3,7 @@ import {TouchableWithoutFeedback, StyleSheet, Modal, Platform, View} from 'react
 
 import {Avatar, ListItem} from 'react-native-elements';
 
-import avatarImage from '../../../../assets/Image/email.png';
+import avatarImage from '../../../assets/Image/pidor.png';
 
 const styles = StyleSheet.create({
 	userMenuContent: {
@@ -32,20 +32,20 @@ const UserAvatar = ({navig, able}) => {
 	};
 
 	return (
-		<>
+		<View>
 			<Avatar rounded source={avatarImage} onPress={showUserMenu} />
 			<Modal visible={userMenuVisible} transparent>
 				<TouchableWithoutFeedback onPress={hideUserMenu}>
 					<View style={styles.userMenuOverlay} />
 				</TouchableWithoutFeedback>
-				<ListItem style={styles.userMenuContent}>
+				<ListItem style={styles.userMenuContent} hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}>
 					<ListItem.Content>
 						<ListItem.Title onPress={Profile}>Profile</ListItem.Title>
 						<ListItem.Title onPress={SignOut}>Log out</ListItem.Title>
 					</ListItem.Content>
 				</ListItem>
 			</Modal>
-		</>
+		</View>
 	);
 };
 export default UserAvatar;

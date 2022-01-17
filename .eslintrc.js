@@ -76,6 +76,7 @@ module.exports = {
 				unnamedComponents: 'arrow-function',
 			},
 		],
+		'react/require-default-props': [0, {forbidDefaultForRequired: true, ignoreFunctionalComponents: true}],
 	},
 	settings: {
 		'import/parsers': {
