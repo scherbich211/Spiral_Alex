@@ -3,46 +3,78 @@ import {TextInput, useTheme} from 'react-native-paper';
 import {View, StyleSheet, TouchableOpacity, Image, Alert} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Controller, useForm} from 'react-hook-form';
+import {StackNavigationProp} from '@react-navigation/stack';
+import * as Yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import Typography from '../../components/Typography';
 import Button from '../../components/Button';
-import {useAppDispatch, useVisiability as useVisibility} from '../../hooks';
+import {useAppDispatch, useAppSelector, useVisiability as useVisibility} from '../../hooks';
 import TouchId from '../../../assets/Image/touchID.png';
 import FaceId from '../../../assets/Image/faceID.png';
 import {ILoginStyle} from '../../types/Login';
 import {SIZES} from '../../theme';
+import {RootStackParamList} from '../../types';
 import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
+import {changeAvatarRedux, changeProfileInfo} from '../../redux/reducers/profile';
+
+type LogScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+interface Props {
+	navigation: LogScreenNavigationProp;
+}
 
 type FormState = {
 	login: string;
 	password: string;
 };
 
-const LogIn: React.FC = (): JSX.Element => {
+const LogIn: React.FC<Props> = (props): JSX.Element => {
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
+	const {users} = useAppSelector(state => state.database);
 	const styles = useStyles(theme);
 	const [isVisible, visible] = useVisibility(true);
-
+	const schema = Yup.object().shape({
+		login: Yup.string()
+			.matches(/(@itechart-group.com)/, {excludeEmptyString: true})
+			.email()
+			.required(),
+		password: Yup.string().required(),
+	});
 	const {
 		control,
-		formState: {errors},
+		formState: {errors, isValid},
 		getValues,
-	} = useForm<FormState>();
+	} = useForm<FormState>({
+		resolver: yupResolver(schema),
+		mode: 'onBlur',
+	});
 
 	const handleLoginPress = () => {
 		if (getValues('login') === undefined || getValues('password') === undefined) {
 			Alert.alert('Wrong Input!', 'Username or password field cannot be empty', [{text: 'Okay'}]);
-		} else if (getValues('login').includes('@itechart-group.com') && getValues('password') === 'admin') {
-			const dataLogin = {
-				userName: getValues('login'),
-				password: getValues('password'),
-			};
-			dispatch(changeUserIsLoggedIn(true));
-			dispatch(changeUserInfo(dataLogin));
-		} else {
-			Alert.alert('Wrong Input!', 'Username or password field, bc u a not admin', [{text: 'Okay'}]);
+		} else if (users) {
+			if (users.findIndex(item => item.email === getValues('login')) !== -1) {
+				const id = users.findIndex(item => item.email === getValues('login'));
+				if (id) {
+					if (users[id].password === getValues('password')) {
+						const dataLogin = {
+							email: getValues('login'),
+							password: getValues('password'),
+						};
+						dispatch(changeUserIsLoggedIn(true));
+						dispatch(changeUserInfo(dataLogin));
+						dispatch(changeProfileInfo({name: `${users[id].firstName} ${users[id].lastName}`, birth: users[id].birth}));
+						dispatch(changeAvatarRedux(users[id].avatar));
+					} else {
+						Alert.alert('Wrong Input!', 'password is wrong', [{text: 'Okay'}]);
+					}
+				}
+			} else {
+				Alert.alert('Wrong Input!', 'No such user, sign up please', [{text: 'Okay'}]);
+			}
 		}
 	};
 
@@ -57,11 +89,13 @@ const LogIn: React.FC = (): JSX.Element => {
 					<View style={{marginBottom: SIZES.height * 0.22}}>
 						<Controller
 							control={control}
-							render={({field: {onChange, value}}) => (
+							render={({field: {onChange, value, onBlur}}) => (
 								<TextInput
 									onChangeText={onChange}
+									onBlur={onBlur}
 									value={value}
 									label="Email"
+									keyboardType="email-address"
 									error={Boolean(errors.login)}
 									style={styles.input}
 								/>
@@ -101,17 +135,25 @@ const LogIn: React.FC = (): JSX.Element => {
 					<View>
 						<View style={StyleSheet.flatten([styles.row, styles.centerAndBetween, styles.buttonContainer])}>
 							<View style={styles.loginButton}>
-								<Button mode="contained" onPress={handleLoginPress} style={styles.buttonRadius}>
+								<Button mode="contained" onPress={handleLoginPress} style={styles.buttonRadius} disabled={!isValid}>
 									Login
 								</Button>
 							</View>
+						</View>
+						<View style={styles.description}>
+							<Typography color={theme.colors.placeholder}>Don&apos;t have an account? </Typography>
+							<TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
+								<Typography color={theme.colors.primary} fontWeight="400">
+									Register here
+								</Typography>
+							</TouchableOpacity>
 						</View>
 						<Typography style={styles.twoWaysLogIn}>Lets test 2 ways to log in</Typography>
 						<View style={styles.ID}>
 							<TouchableOpacity style={styles.buttonID}>
 								<View style={styles.viewImage}>
 									<Image source={FaceId} style={styles.image} />
-									<Typography>Touch ID</Typography>
+									<Typography>Face ID</Typography>
 								</View>
 							</TouchableOpacity>
 							<TouchableOpacity style={styles.buttonID}>
@@ -163,7 +205,7 @@ const useStyles = StyleSheet.create(
 			justifyContent: 'center',
 		},
 		header: {marginBottom: 6, width: '17%', fontWeight: '400'},
-		description: {flexDirection: 'row', marginBottom: 22},
+		description: {flexDirection: 'row', marginBottom: 22, alignSelf: 'center'},
 		ID: {
 			flexDirection: 'row',
 			justifyContent: 'space-between',
@@ -180,7 +222,7 @@ const useStyles = StyleSheet.create(
 		},
 		twoWaysLogIn: {
 			alignSelf: 'center',
-			paddingTop: '15%',
+			paddingTop: '5%',
 			paddingBottom: '4%',
 		},
 		buttonID: {

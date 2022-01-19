@@ -1,7 +1,7 @@
 export interface IUser {
 	isLoggedIn: boolean;
 	login: {
-		userName: string;
+		email: string;
 		password: string;
 	};
 }

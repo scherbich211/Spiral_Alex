@@ -13,6 +13,7 @@ import store from './redux/store';
 import SignIn from './screens/SignIn';
 import {changeDarkMode} from './redux/reducers/profile';
 import DrawerNavigator from './screens/HomeScreens/Drawer';
+import SignUp from './screens/SignUp';
 
 const persistor = persistStore(store);
 
@@ -63,7 +64,10 @@ const Main = (): JSX.Element => {
 							{isLoggedIn ? (
 								<Stack.Screen name="DrawerNavigator" options={{headerShown: false}} component={DrawerNavigator} />
 							) : (
-								<Stack.Screen name="SignIn" options={{headerShown: false}} component={SignIn} />
+								<>
+									<Stack.Screen name="SignIn" options={{headerShown: false}} component={SignIn} />
+									<Stack.Screen name="SignUp" options={{headerShown: false}} component={SignUp} />
+								</>
 							)}
 						</Stack.Navigator>
 					</NavigationContainer>

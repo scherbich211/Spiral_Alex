@@ -1,5 +1,19 @@
+export interface FormDataToPassword {
+	firstName: string;
+	lastName: string;
+	email: string;
+	birth: string;
+	avatar: string;
+}
+
 export type SingInStackParamList = {
 	Login: undefined;
+};
+
+export type SingUpStackParamList = {
+	Registration: undefined;
+	CreatePassword: {userInfo: {firstName: string; lastName: string; email: string; birth: string; avatar: string}};
+	Welcome: undefined;
 };
 
 export type DrawerStackParamList = {
@@ -20,8 +34,10 @@ export type TabBarStackParamList = {
 
 export type RootStackParamList = {
 	SignIn: undefined;
+	SignUp: undefined;
 	DrawerNavigator: undefined;
-} & SingInStackParamList &
+} & SingUpStackParamList &
+	SingInStackParamList &
 	DrawerStackParamList &
 	TabBarStackParamList;
 

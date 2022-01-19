@@ -4,7 +4,7 @@ import {IUser} from '../../types/userReducer';
 const initialState: IUser = {
 	isLoggedIn: false,
 	login: {
-		userName: '',
+		email: '',
 		password: '',
 	},
 };
