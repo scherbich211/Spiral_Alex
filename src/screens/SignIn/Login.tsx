@@ -55,25 +55,29 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 	const handleLoginPress = () => {
 		if (getValues('login') === undefined || getValues('password') === undefined) {
 			Alert.alert('Wrong Input!', 'Username or password field cannot be empty', [{text: 'Okay'}]);
-		} else if (users) {
-			if (users.findIndex(item => item.email === getValues('login')) !== -1) {
-				const id = users.findIndex(item => item.email === getValues('login'));
-				if (id) {
-					if (users[id].password === getValues('password')) {
-						const dataLogin = {
-							email: getValues('login'),
-							password: getValues('password'),
-						};
-						dispatch(changeUserIsLoggedIn(true));
-						dispatch(changeUserInfo(dataLogin));
-						dispatch(changeProfileInfo({name: `${users[id].firstName} ${users[id].lastName}`, birth: users[id].birth}));
-						dispatch(changeAvatarRedux(users[id].avatar));
-					} else {
-						Alert.alert('Wrong Input!', 'password is wrong', [{text: 'Okay'}]);
+		} else {
+			if (users) {
+				if (users.findIndex(item => item.email === getValues('login')) !== -1) {
+					const id = users.findIndex(item => item.email === getValues('login'));
+					if (id) {
+						if (users[id].password === getValues('password')) {
+							const dataLogin = {
+								email: getValues('login'),
+								password: getValues('password'),
+							};
+							dispatch(changeUserIsLoggedIn(true));
+							dispatch(changeUserInfo(dataLogin));
+							dispatch(
+								changeProfileInfo({name: `${users[id].firstName} ${users[id].lastName}`, birth: users[id].birth}),
+							);
+							dispatch(changeAvatarRedux(users[id].avatar));
+						} else {
+							Alert.alert('Wrong Input!', 'password is wrong', [{text: 'Okay'}]);
+						}
 					}
+				} else {
+					Alert.alert('Wrong Input!', 'No such user, sign up please', [{text: 'Okay'}]);
 				}
-			} else {
-				Alert.alert('Wrong Input!', 'No such user, sign up please', [{text: 'Okay'}]);
 			}
 		}
 	};
