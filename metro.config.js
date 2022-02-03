@@ -6,12 +6,13 @@
  */
 
 module.exports = {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
-  },
+	transformer: {
+		// eslint-disable-next-line require-await
+		getTransformOptions: async () => ({
+			transform: {
+				experimentalImportSupport: false,
+				inlineRequires: true,
+			},
+		}),
+	},
 };
