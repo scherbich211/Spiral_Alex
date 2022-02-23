@@ -1,18 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {TextInput, HelperText, useTheme} from 'react-native-paper';
 import * as Yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {StackNavigationProp} from '@react-navigation/stack';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import DescriptionText from '../../components/DescriptionUnderHeader/DescriptionUnderHeader';
 import ButtonCustom from '../../components/Button';
-import {FormDataToPassword, RootStackParamList} from '../../types';
-import {useAppDispatch, useAppSelector, useVisiability} from '../../hooks';
-import {changeUsersData, User} from '../../redux/reducers/database';
+import {FormDataToPassword} from '../../types';
+import {useAppDispatch, useVisiability} from '../../hooks';
+import {AuthContext} from '../../AuthProvider';
+import {changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 export interface ICFormDataPassword {
 	password: string;
@@ -30,10 +30,7 @@ const schema = Yup.object().shape({
 	}),
 });
 
-type CreatePasswordScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CreatePassword'>;
-
 interface Props {
-	navigation: CreatePasswordScreenNavigationProp;
 	route: {
 		params: {
 			userInfo: FormDataToPassword;
@@ -43,9 +40,10 @@ interface Props {
 
 const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 	const theme = useTheme();
-	const {users} = useAppSelector(state => state.database);
 	const dispatch = useAppDispatch();
 	const [isVisible, visible] = useVisiability(true);
+
+	const {register} = useContext(AuthContext);
 
 	const {
 		control,
@@ -57,17 +55,8 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 	});
 
 	const onSubmit = () => {
-		const dataToChange: User = {
-			id: users.length + 1,
-			firstName: props.route.params.userInfo.firstName,
-			lastName: props.route.params.userInfo.lastName,
-			email: props.route.params.userInfo.email,
-			birth: props.route.params.userInfo.birth,
-			avatar: props.route.params.userInfo.avatar,
-			password: getValues('password'),
-		};
-		dispatch(changeUsersData(users.concat(dataToChange)));
-		props.navigation.navigate('Login');
+		register(props.route.params.userInfo.email, getValues('password'));
+		dispatch(changeUserIsLoggedIn(true));
 	};
 
 	const isDisabled = !isValid || getValues('password').length === 0 || getValues('confirmPassword').length === 0;

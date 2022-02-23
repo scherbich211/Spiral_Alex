@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {TouchableWithoutFeedback, StyleSheet, Modal, Platform, View} from 'react-native';
 
 import {Avatar, ListItem} from 'react-native-elements';
 
 import avatarImage from '../../../assets/Image/pidor.png';
+import {AuthContext} from '../../AuthProvider';
 import {useAppDispatch} from '../../hooks';
 import {clearProfileInfo} from '../../redux/reducers/profile';
 import {clearUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
@@ -22,6 +23,7 @@ interface IProps {
 	navig: () => void;
 }
 const UserAvatar: React.FC<IProps> = props => {
+	const {logout} = useContext(AuthContext);
 	const dispatch = useAppDispatch();
 	const [userMenuVisible, setUserMenuVisible] = useState(false);
 
@@ -36,6 +38,7 @@ const UserAvatar: React.FC<IProps> = props => {
 		dispatch(clearProfileInfo);
 		dispatch(clearUserInfo);
 		dispatch(changeUserIsLoggedIn(false));
+		logout();
 	};
 	const Profile = () => {
 		props.navig();

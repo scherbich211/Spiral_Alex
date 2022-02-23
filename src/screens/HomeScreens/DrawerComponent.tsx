@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, StyleSheet} from 'react-native';
 import {DrawerContentScrollView, DrawerItem, DrawerContentComponentProps} from '@react-navigation/drawer';
 import {Avatar, Text, Title, Paragraph, Drawer, Caption, TouchableRipple, Switch, useTheme} from 'react-native-paper';
@@ -11,8 +11,10 @@ import {useAppDispatch} from '../../hooks';
 import {clearProfileInfo} from '../../redux/reducers/profile';
 import {changeUserIsLoggedIn, clearUserInfo} from '../../redux/reducers/user';
 import Pidor from '../../../assets/Image/pidor.png';
+import {AuthContext} from '../../AuthProvider';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
+	const {logout} = useContext(AuthContext);
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
 	const [isDarkTheme, setIsDarkTheme] = React.useState(false);
@@ -24,6 +26,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 		dispatch(clearProfileInfo);
 		dispatch(clearUserInfo);
 		dispatch(changeUserIsLoggedIn(false));
+		logout();
 	};
 
 	return (

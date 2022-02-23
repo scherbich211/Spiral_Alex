@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TextInput, useTheme} from 'react-native-paper';
-import {View, StyleSheet, TouchableOpacity, Image, Alert} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Controller, useForm} from 'react-hook-form';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -10,14 +10,14 @@ import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import Typography from '../../components/Typography';
 import Button from '../../components/Button';
-import {useAppDispatch, useAppSelector, useVisiability as useVisibility} from '../../hooks';
+import {useAppDispatch, useVisiability as useVisibility} from '../../hooks';
 import TouchId from '../../../assets/Image/touchID.png';
 import FaceId from '../../../assets/Image/faceID.png';
 import {ILoginStyle} from '../../types/Login';
 import {SIZES} from '../../theme';
 import {RootStackParamList} from '../../types';
-import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
-import {changeAvatarRedux, changeProfileInfo} from '../../redux/reducers/profile';
+import {AuthContext} from '../../AuthProvider';
+import {changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 type LogScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -32,8 +32,8 @@ type FormState = {
 
 const LogIn: React.FC<Props> = (props): JSX.Element => {
 	const theme = useTheme();
+	const {login} = useContext(AuthContext);
 	const dispatch = useAppDispatch();
-	const {users} = useAppSelector(state => state.database);
 	const styles = useStyles(theme);
 	const [isVisible, visible] = useVisibility(true);
 	const schema = Yup.object().shape({
@@ -53,35 +53,9 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 	});
 
 	const handleLoginPress = () => {
-		if (getValues('login') === undefined || getValues('password') === undefined) {
-			Alert.alert('Wrong Input!', 'Username or password field cannot be empty', [{text: 'Okay'}]);
-		} else {
-			if (users) {
-				if (users.findIndex(item => item.email === getValues('login')) !== -1) {
-					const id = users.findIndex(item => item.email === getValues('login'));
-					if (id) {
-						if (users[id].password === getValues('password')) {
-							const dataLogin = {
-								email: getValues('login'),
-								password: getValues('password'),
-							};
-							dispatch(changeUserIsLoggedIn(true));
-							dispatch(changeUserInfo(dataLogin));
-							dispatch(
-								changeProfileInfo({name: `${users[id].firstName} ${users[id].lastName}`, birth: users[id].birth}),
-							);
-							dispatch(changeAvatarRedux(users[id].avatar));
-						} else {
-							Alert.alert('Wrong Input!', 'password is wrong', [{text: 'Okay'}]);
-						}
-					}
-				} else {
-					Alert.alert('Wrong Input!', 'No such user, sign up please', [{text: 'Okay'}]);
-				}
-			}
-		}
+		dispatch(changeUserIsLoggedIn(true));
+		login(getValues('login'), getValues('password'));
 	};
-
 	return (
 		<KeyboardAwareScrollView>
 			<Layout>
@@ -108,9 +82,10 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 						/>
 						<Controller
 							control={control}
-							render={({field: {onChange, value}}) => (
+							render={({field: {onChange, value, onBlur}}) => (
 								<TextInput
 									onChangeText={onChange}
+									onBlur={onBlur}
 									value={value}
 									label="Password"
 									error={Boolean(errors.password)}
@@ -208,7 +183,7 @@ const useStyles = StyleSheet.create(
 			alignItems: 'center',
 			justifyContent: 'center',
 		},
-		header: {marginBottom: 6, width: '17%', fontWeight: '400'},
+		header: {marginBottom: 6, width: '22%', fontWeight: '400'},
 		description: {flexDirection: 'row', marginBottom: 22, alignSelf: 'center'},
 		ID: {
 			flexDirection: 'row',
@@ -239,7 +214,7 @@ const useStyles = StyleSheet.create(
 			alignItems: 'center',
 		},
 		loginUnderline: {
-			width: '17%',
+			width: '22%',
 			height: 3,
 			backgroundColor: theme.colors.primary,
 			borderRadius: 5,

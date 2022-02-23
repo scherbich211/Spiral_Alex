@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Spiral_Alex.app"
-               BlueprintName = "Spiral_Alex"
-               ReferencedContainer = "container:Spiral_Alex.xcodeproj">
+               BuildableName = "Spiral.app"
+               BlueprintName = "Spiral"
+               ReferencedContainer = "container:Spiral.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "Spiral_AlexTests.xctest"
-               BlueprintName = "Spiral_AlexTests"
-               ReferencedContainer = "container:Spiral_Alex.xcodeproj">
+               BuildableName = "SpiralTests.xctest"
+               BlueprintName = "SpiralTests"
+               ReferencedContainer = "container:Spiral.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Spiral_Alex.app"
-            BlueprintName = "Spiral_Alex"
-            ReferencedContainer = "container:Spiral_Alex.xcodeproj">
+            BuildableName = "Spiral.app"
+            BlueprintName = "Spiral"
+            ReferencedContainer = "container:Spiral.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Spiral_Alex.app"
-            BlueprintName = "Spiral_Alex"
-            ReferencedContainer = "container:Spiral_Alex.xcodeproj">
+            BuildableName = "Spiral.app"
+            BlueprintName = "Spiral"
+            ReferencedContainer = "container:Spiral.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

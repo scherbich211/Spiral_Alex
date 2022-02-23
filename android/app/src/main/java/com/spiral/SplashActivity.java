@@ -1,4 +1,4 @@
-package com.spiral_alex; // Change this to your package name.
+package com.spiral; // Change this to your package name.
 
 import android.content.Intent;
 import android.os.Bundle;

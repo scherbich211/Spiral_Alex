@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import {useDispatch} from 'react-redux';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {useAppSelector} from './hooks';
 import {CustomDefaultTheme, CustomDarkTheme, PreferencesContext} from './theme';
 import {RootStackParamList} from './types';
@@ -14,12 +15,15 @@ import SignIn from './screens/SignIn';
 import {changeDarkMode} from './redux/reducers/profile';
 import DrawerNavigator from './screens/HomeScreens/Drawer';
 import SignUp from './screens/SignUp';
+import {AuthContext} from './AuthProvider';
 
 const persistor = persistStore(store);
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const Main = (): JSX.Element => {
+const Main = () => {
+	const {user, setUser} = useContext(AuthContext);
+	const [initializing, setInitializing] = useState(true);
 	const {isLoggedIn} = useAppSelector(state => state.user);
 	const darkMode = useAppSelector(state => state.profile.darkMode);
 	const dispatch = useDispatch();
@@ -37,16 +41,6 @@ const Main = (): JSX.Element => {
 		</View>
 	);
 
-	// useEffect(() => {
-	// 	if (!isOnboarded) {
-	// 		if (Appearance.getColorScheme() === 'dark') {
-	// 			dispatch(changeDarkMode(true));
-	// 		} else {
-	// 			dispatch(changeDarkMode(false));
-	// 		}
-	// 	}
-	// }, []);
-
 	const preferences = React.useMemo(
 		() => ({
 			toggleTheme,
@@ -55,13 +49,29 @@ const Main = (): JSX.Element => {
 		[toggleTheme, darkMode],
 	);
 
+	const onAuthStateChanged = (userAuth: FirebaseAuthTypes.User | null) => {
+		setUser(userAuth);
+		if (initializing) {
+			setInitializing(false);
+		}
+	};
+
+	useEffect(() => {
+		const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+		return subscriber;
+	}, [user, setUser]);
+
+	if (initializing) {
+		return null;
+	}
+
 	return (
 		<PersistGate persistor={persistor} loading={loader}>
 			<PreferencesContext.Provider value={preferences}>
 				<PaperProvider theme={theme}>
 					<NavigationContainer theme={theme}>
 						<Stack.Navigator>
-							{isLoggedIn ? (
+							{isLoggedIn && user ? (
 								<Stack.Screen name="DrawerNavigator" options={{headerShown: false}} component={DrawerNavigator} />
 							) : (
 								<>

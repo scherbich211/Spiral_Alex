@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "212015192279",
+    "project_id": "spiral-5e2f4",
+    "storage_bucket": "spiral-5e2f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212015192279:android:78caa532153278b18b3892",
+        "android_client_info": {
+          "package_name": "com.spiral"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212015192279-vucs70ho2h1ktupgt44vatf78kmgeld5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARkpGGcBeVMcv0nEH0PSNqQsm1dMBYTY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212015192279-vucs70ho2h1ktupgt44vatf78kmgeld5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "212015192279-fmvlco89mtp8bmjhoa8bicsbp2m3u99b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.spiral"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
