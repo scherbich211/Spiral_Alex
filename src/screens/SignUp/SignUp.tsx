@@ -2,13 +2,10 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {StackNavigationProp} from '@react-navigation/stack';
-// import {useAppSelector} from '../../hooks';
-
 import {TextInput} from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import TextInputMask from 'react-native-text-input-mask';
 import Layout from '../../components/Layout';
 import {RootStackParamList, SingUpStackParamList} from '../../types';
 import Button from '../../components/Button';
@@ -18,11 +15,7 @@ import {IUsers} from '../../types/databaseReducer';
 export type RegisterForm = IUsers;
 
 export interface FormData {
-	firstName: string;
-	lastName: string;
 	email: string;
-	birth: string;
-	avatar: string;
 }
 
 type SignUpScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignUp'>;
@@ -31,20 +24,11 @@ interface Props {
 }
 
 const Registration: React.FC<Props> = ({navigation}) => {
-	// const userInfo = useAppSelector(state => state.database);
-
 	const schema = Yup.object().shape({
-		firstName: Yup.string()
-			.matches(/[^0-9\s]/g)
-			.required(),
-		lastName: Yup.string()
-			.matches(/[^0-9\s]/g)
-			.required(),
 		email: Yup.string()
 			.matches(/(@itechart-group.com)/, {excludeEmptyString: true})
 			.email()
 			.required(),
-		birth: Yup.string().required(),
 	});
 	const {
 		control,
@@ -60,11 +44,7 @@ const Registration: React.FC<Props> = ({navigation}) => {
 	};
 	const navigatePassword = (route: keyof SingUpStackParamList) => () => {
 		const dataToChange = {
-			firstName: getValues('firstName'),
-			lastName: getValues('lastName'),
 			email: getValues('email'),
-			birth: getValues('birth'),
-			avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
 		};
 		navigation.navigate(route, {
 			userInfo: {...dataToChange},
@@ -87,34 +67,6 @@ const Registration: React.FC<Props> = ({navigation}) => {
 										render={({field: {onChange, value, onBlur}}) => (
 											<TextInput
 												onChangeText={onChange}
-												value={value === undefined ? value : value.trimLeft().replace(/\s+/g, ' ')}
-												label="First name*"
-												error={Boolean(errors.firstName)}
-												style={styles.input}
-												onBlur={onBlur}
-											/>
-										)}
-										name="firstName"
-									/>
-									<Controller
-										control={control}
-										render={({field: {onChange, value, onBlur}}) => (
-											<TextInput
-												onChangeText={onChange}
-												value={value === undefined ? value : value.trimLeft().replace(/\s+/g, ' ')}
-												label="Last name*"
-												error={Boolean(errors.lastName)}
-												style={styles.input}
-												onBlur={onBlur}
-											/>
-										)}
-										name="lastName"
-									/>
-									<Controller
-										control={control}
-										render={({field: {onChange, value, onBlur}}) => (
-											<TextInput
-												onChangeText={onChange}
 												onBlur={onBlur}
 												value={value === undefined ? value : value.trimLeft().replace(/\s+/g, ' ')}
 												label="Email*"
@@ -124,26 +76,6 @@ const Registration: React.FC<Props> = ({navigation}) => {
 											/>
 										)}
 										name="email"
-									/>
-									<Controller
-										control={control}
-										render={({field: {onChange, value, onBlur}}) => (
-											<TextInput
-												onChangeText={onChange}
-												value={value}
-												label="Date of Birth*"
-												placeholder="mm/dd/yyyy"
-												error={Boolean(errors.birth)}
-												style={styles.input}
-												onBlur={onBlur}
-												render={props => {
-													// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-													// @ts-ignore
-													return <TextInputMask {...props} mask="[00]/[00]/[0000]" />;
-												}}
-											/>
-										)}
-										name="birth"
 									/>
 								</View>
 							</View>

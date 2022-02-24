@@ -12,7 +12,7 @@ export type SingInStackParamList = {
 
 export type SingUpStackParamList = {
 	Registration: undefined;
-	CreatePassword: {userInfo: {firstName: string; lastName: string; email: string; birth: string; avatar: string}};
+	CreatePassword: {userInfo: {email: string}};
 	Welcome: undefined;
 };
 

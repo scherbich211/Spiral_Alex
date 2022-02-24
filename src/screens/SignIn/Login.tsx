@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {TextInput, useTheme} from 'react-native-paper';
 import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -9,7 +9,6 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 import Typography from '../../components/Typography';
-import Button from '../../components/Button';
 import {useAppDispatch, useVisiability as useVisibility} from '../../hooks';
 import TouchId from '../../../assets/Image/touchID.png';
 import FaceId from '../../../assets/Image/faceID.png';
@@ -18,6 +17,7 @@ import {SIZES} from '../../theme';
 import {RootStackParamList} from '../../types';
 import {AuthContext} from '../../AuthProvider';
 import {changeUserIsLoggedIn} from '../../redux/reducers/user';
+import ButtonCustom from '../../components/Button';
 
 type LogScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -36,6 +36,8 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 	const dispatch = useAppDispatch();
 	const styles = useStyles(theme);
 	const [isVisible, visible] = useVisibility(true);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const schema = Yup.object().shape({
 		login: Yup.string()
 			.matches(/(@itechart-group.com)/, {excludeEmptyString: true})
@@ -52,9 +54,11 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 		mode: 'onBlur',
 	});
 
-	const handleLoginPress = () => {
+	const handleLoginPress = async () => {
+		setIsLoading(true);
+		await login(getValues('login'), getValues('password'));
+		setIsLoading(false);
 		dispatch(changeUserIsLoggedIn(true));
-		login(getValues('login'), getValues('password'));
 	};
 	return (
 		<KeyboardAwareScrollView>
@@ -114,9 +118,14 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 					<View>
 						<View style={StyleSheet.flatten([styles.row, styles.centerAndBetween, styles.buttonContainer])}>
 							<View style={styles.loginButton}>
-								<Button mode="contained" onPress={handleLoginPress} style={styles.buttonRadius} disabled={!isValid}>
+								<ButtonCustom
+									mode="contained"
+									loading={isLoading}
+									onPress={handleLoginPress}
+									style={styles.buttonRadius}
+									disabled={!isValid || isLoading}>
 									Login
-								</Button>
+								</ButtonCustom>
 							</View>
 						</View>
 						<View style={styles.description}>

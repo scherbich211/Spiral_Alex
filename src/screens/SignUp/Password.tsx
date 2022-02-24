@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {TextInput, HelperText, useTheme} from 'react-native-paper';
@@ -42,6 +42,7 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
 	const [isVisible, visible] = useVisiability(true);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const {register} = useContext(AuthContext);
 
@@ -54,8 +55,10 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 		mode: 'onBlur',
 	});
 
-	const onSubmit = () => {
-		register(props.route.params.userInfo.email, getValues('password'));
+	const onSubmit = async () => {
+		setIsLoading(true);
+		await register(props.route.params.userInfo.email, getValues('password'));
+		setIsLoading(false);
 		dispatch(changeUserIsLoggedIn(true));
 	};
 
@@ -133,11 +136,10 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 						</View>
 						<ButtonCustom
 							onPress={onSubmit}
-							disabled={isDisabled}
+							disabled={isDisabled || isLoading}
 							style={styles.button}
 							mode="contained"
-							// loading={props.isLoading}
-						>
+							loading={isLoading}>
 							Setup password
 						</ButtonCustom>
 					</View>
