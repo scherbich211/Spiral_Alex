@@ -1,18 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-export interface User {
-	id: number;
-	email: string;
-	password: string;
-	firstName: string;
-	lastName: string;
-	birth: string;
-	avatar: string;
-}
-
-export interface IUsers {
-	users: User[];
-}
+import {IUsers} from '../../types/databaseReducer';
 
 const initialState: IUsers = {
 	users: [],

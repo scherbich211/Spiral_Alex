@@ -13,7 +13,7 @@ import Layout from '../../components/Layout';
 import {RootStackParamList, SingUpStackParamList} from '../../types';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import {IUsers} from '../../redux/reducers/database';
+import {IUsers} from '../../types/databaseReducer';
 
 export type RegisterForm = IUsers;
 

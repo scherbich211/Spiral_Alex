@@ -1,30 +1,25 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Image, ScrollView, View, Text, TouchableOpacity, TextInput, Alert, Platform, StyleSheet} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import * as Animatable from 'react-native-animatable';
 import {ImageLibraryOptions, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useTheme} from 'react-native-paper';
+import {ActivityIndicator, useTheme} from 'react-native-paper';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 import {requestCameraPermission, requestExternalWritePermission} from '../../../../utils/componentsForProfile';
 import {Permission, PERMISSION_TYPE} from '../../../../utils/AppPermission';
 import CameraImage from '../../../../../assets/Image/camera.png';
 import FileImage from '../../../../../assets/Image/file.png';
 import {RootStackParamList} from '../../../../types';
 import TabHeader from '../../../../components/Header/TabHeader';
-import {useAppDispatch, useAppSelector} from '../../../../hooks';
-import {IProfile} from '../../../../types/profileReducer';
-import {changeAvatarRedux, changeProfileInfo} from '../../../../redux/reducers/profile';
 import {IProfileStyle} from '../../../../types/profile';
+import Typography from '../../../../components/Typography';
+import {AuthContext} from '../../../../AuthProvider';
 
 interface Data {
 	name: string;
 	DoB: string;
 	edit: boolean;
-	check_nameInputChange: boolean;
-	check_birthInputChange: boolean;
-	isValidUser: boolean;
-	isValidBirth: boolean;
 	filePath: string;
 }
 
@@ -35,34 +30,94 @@ interface IProps {
 }
 
 const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
+	const {user} = useContext(AuthContext);
 	const theme = useTheme();
 	const styles = useStyles(theme);
-	const dispatch = useAppDispatch();
+	const [image, setImage] = useState('');
+	const [upload, setUpload] = useState(false);
+	const [transfered, setTransfered] = useState(0);
 	// ----------everything with input and text-------------------------------------------------------
-
-	const {
-		avatar,
-		userInfo: {name, birth},
-	} = useAppSelector(state => state.profile);
 
 	const [data, setData] = useState<Data>({
 		name: '',
 		DoB: '',
 		edit: false,
-		check_nameInputChange: false,
-		check_birthInputChange: false,
-		isValidUser: true,
-		isValidBirth: true,
 		filePath: '',
 	});
+
+	const getUser = async () => {
+		setUpload(true);
+		await firestore()
+			.collection('users')
+			.doc(user.uid)
+			.get()
+			.then(documentSnapshot => {
+				if (documentSnapshot.exists) {
+					console.log('User Data', documentSnapshot.data());
+					setData({
+						...data,
+						name: documentSnapshot.data().fullName,
+						DoB: documentSnapshot.data().userBirth,
+						filePath: documentSnapshot.data().userImg,
+					});
+				}
+			});
+		setUpload(false);
+	};
+
+	const submitPost = async () => {
+		const imgUrl = await uploadImage();
+		console.log('utl', imgUrl);
+		firestore()
+			.collection('users')
+			.doc(user.uid)
+			.update({
+				fullName: data.name,
+				userBirth: data.DoB,
+				userImg: imgUrl,
+			})
+			.then(() => {
+				console.log('User Updated!');
+				Alert.alert('Profile Updated!', 'Your profile has been updated successfully.');
+			});
+	};
+
+	const uploadImage = async () => {
+		let fileName = image.substring(image.lastIndexOf('/') + 1);
+
+		const extension = fileName.split('.').pop();
+		const nameFile = fileName.split('.').slice(0, -1).join('.');
+		fileName = `${nameFile + Date.now()}.${extension}`;
+
+		setUpload(true);
+		setTransfered(0);
+
+		const storageRef = storage().ref(`photos/${fileName}`);
+		const task = storageRef.putFile(image);
+
+		task.on('state_changed', taskSnapshot => {
+			console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+
+			setTransfered(Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100);
+		});
+		try {
+			await task;
+			const url = await storageRef.getDownloadURL();
+
+			setUpload(false);
+			Alert.alert('done');
+			return url;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	};
 
 	const EditProfile = (): void => {
 		if (data.edit === false) {
 			setData({
 				...data,
 				edit: true,
-				check_nameInputChange: false,
-				check_birthInputChange: false,
 			});
 		} else if (data.edit === true) {
 			setData({
@@ -72,83 +127,50 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 		}
 	};
 
-	// eslint-disable-next-line no-shadow
-	const SuccessEdit = (name: string, birth: string, file: string): void => {
-		if (data.check_birthInputChange === false || data.check_nameInputChange === false) {
-			Alert.alert('Wrong Input!', 'Look at errors', [{text: 'Okay'}]);
-			return;
-		}
-		if (data.edit === false) {
-			setData({
-				...data,
-				edit: true,
-				check_nameInputChange: false,
-				check_birthInputChange: false,
-			});
-		} else {
+	useEffect(() => {
+		if (!upload) {
 			setData({
 				...data,
 				edit: false,
 			});
-			const dataToChange: IProfile['userInfo'] = {
-				name,
-				birth,
-			};
-			dispatch(changeProfileInfo(dataToChange));
-			dispatch(changeAvatarRedux(file));
 		}
-	};
+	}, [upload]);
 
 	const nameInputChange = (val: string): void => {
 		if (val.length >= 4) {
 			setData({
 				...data,
 				name: val,
-				check_nameInputChange: true,
-				isValidUser: true,
 			});
 		} else {
 			setData({
 				...data,
 				name: val,
-				check_nameInputChange: false,
-				isValidUser: false,
 			});
 		}
 	};
+	console.log(data.name);
+
 	const handleBirthChange = (val: string): void => {
 		if (val.length >= 4) {
 			setData({
 				...data,
 				DoB: val,
-				isValidBirth: true,
-				check_birthInputChange: true,
 			});
 		} else {
 			setData({
 				...data,
 				DoB: val,
-				isValidBirth: false,
-				check_birthInputChange: false,
 			});
 		}
 	};
+	console.log(data.DoB);
 
-	const handleValidUser = (val: string): void => {
-		if (val.trim().length >= 4) {
-			setData({
-				...data,
-				isValidUser: true,
-			});
-		} else {
-			setData({
-				...data,
-				isValidUser: false,
-			});
-		}
-	};
+	useEffect(() => {
+		getUser();
+	}, []);
+
 	// ------------------------------------------------------------------------------------------------
-
 	// ------------files-------------------------------------------------------------------------------
 
 	// -------------takePhoto------------------------------------------------------------
@@ -278,10 +300,11 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 					const [asset] = response.assets;
 					if (asset) {
 						if (asset.uri) {
-							setData({
-								...data,
-								filePath: asset.uri,
-							});
+							setImage(asset.uri);
+							// setData({
+							// 	...data,
+							// 	filePath: asset.uri,
+							// });
 						}
 					} else {
 						console.warn('no asset available');
@@ -315,17 +338,34 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 				{data.edit === false ? (
 					// -----------NORMAL-STYLE--------------------------------------------------------------------
 					<View style={styles.containerPart}>
-						<View>
-							<Image source={{uri: avatar}} style={styles.Image} />
-						</View>
-						<View>
-							<Text style={styles.greyText}>Full Name</Text>
-							<Text style={styles.nameDOB}>{name}</Text>
-						</View>
-						<View>
-							<Text style={styles.greyText}>Date of Birth</Text>
-							<Text style={styles.nameDOB}>{birth}</Text>
-						</View>
+						{upload ? (
+							<View style={styles.containerPart}>
+								<Typography>{transfered}</Typography>
+								<ActivityIndicator size="large" />
+							</View>
+						) : (
+							<>
+								<View>
+									<Image
+										source={{
+											uri: data
+												? data.filePath ||
+												  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
+												: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+										}}
+										style={styles.Image}
+									/>
+								</View>
+								<View>
+									<Text style={styles.greyText}>Full Name</Text>
+									<Text style={styles.nameDOB}>{data.name}</Text>
+								</View>
+								<View>
+									<Text style={styles.greyText}>Date of Birth</Text>
+									<Text style={styles.nameDOB}>{data.DoB}</Text>
+								</View>
+							</>
+						)}
 						<View style={styles.ButtonCont}>
 							<TouchableOpacity style={styles.editButton} onPress={() => EditProfile()}>
 								<Text style={styles.editButtonText}>Edit Profile</Text>
@@ -335,37 +375,44 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 				) : (
 					// -----------EDIT-STYLE--------------------------------------------------------------------
 					<View style={styles.containerPart}>
-						<View style={styles.containerPart}>
-							<Image source={{uri: data.filePath}} style={styles.Image} />
-							<View style={styles.viewCameraFile}>
-								<TouchableOpacity onPress={() => captureImage('photo')}>
-									<Image source={CameraImage} style={styles.cameraIcon} />
-								</TouchableOpacity>
-								<TouchableOpacity onPress={() => chooseFile('photo')}>
-									<Image source={FileImage} style={styles.fileIcon} />
-								</TouchableOpacity>
+						{upload ? (
+							<View style={styles.containerPart}>
+								<Typography>{transfered}</Typography>
+								<ActivityIndicator size="large" />
 							</View>
-						</View>
+						) : (
+							<View style={styles.containerPart}>
+								<Image
+									source={{
+										uri:
+											image ||
+											(data
+												? data.filePath ||
+												  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
+												: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'),
+									}}
+									style={styles.Image}
+								/>
+								<View style={styles.viewCameraFile}>
+									<TouchableOpacity onPress={() => captureImage('photo')}>
+										<Image source={CameraImage} style={styles.cameraIcon} />
+									</TouchableOpacity>
+									<TouchableOpacity onPress={() => chooseFile('photo')}>
+										<Image source={FileImage} style={styles.fileIcon} />
+									</TouchableOpacity>
+								</View>
+							</View>
+						)}
 						<View>
 							<Text style={styles.greyText}>Full Name</Text>
 							<View style={styles.textInput}>
 								<TextInput
 									placeholder="Your full name"
 									autoCapitalize="none"
+									value={data ? data.name : ''}
 									onChangeText={val => nameInputChange(val)}
-									onEndEditing={e => handleValidUser(e.nativeEvent.text)}
 								/>
-								{data.check_nameInputChange ? (
-									<Animatable.View animation="bounceIn">
-										<Feather name="check-circle" color="green" size={20} />
-									</Animatable.View>
-								) : null}
 							</View>
-							{data.isValidUser ? null : (
-								<Animatable.View animation="fadeInLeft" duration={500}>
-									<Text style={styles.errorMess}>Username must be 4 characters long</Text>
-								</Animatable.View>
-							)}
 						</View>
 						<View>
 							<Text style={styles.greyText}>Date of Birth</Text>
@@ -373,27 +420,16 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 								<TextInput
 									placeholder="Input Date of Birth"
 									autoCapitalize="none"
+									value={data ? data.DoB : ''}
 									onChangeText={val => handleBirthChange(val)}
 								/>
-								{data.check_birthInputChange ? (
-									<Animatable.View animation="bounceIn">
-										<Feather name="check-circle" color="green" size={20} />
-									</Animatable.View>
-								) : null}
 							</View>
-							{data.isValidBirth ? null : (
-								<Animatable.View animation="fadeInLeft" duration={500}>
-									<Text style={styles.errorMess}>Password must be 5 characters long</Text>
-								</Animatable.View>
-							)}
 						</View>
 						<View style={styles.viewCancelEdit}>
 							<TouchableOpacity style={styles.applyCancelButton} onPress={() => EditProfile()}>
 								<Text style={styles.editButtonText}>Cancel</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.applyCancelButton}
-								onPress={() => SuccessEdit(data.name, data.DoB, data.filePath)}>
+							<TouchableOpacity style={styles.applyCancelButton} onPress={submitPost} disabled={upload}>
 								<Text style={styles.editButtonText}>Edit Profile</Text>
 							</TouchableOpacity>
 						</View>
