@@ -1,10 +1,10 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TabHeader from '../../../../components/Header/TabHeader';
+import Typography from '../../../../components/Typography';
 import UserAvatar from '../../../../components/UserAvatar';
 import {RootStackParamList} from '../../../../types';
 import {ICheckingStyles} from '../../../../types/checking';
@@ -29,10 +29,10 @@ const data1: Array<Date> = [
 
 const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 	const theme = useTheme();
-	const styles = useStyles();
+	const styles = useStyles(theme);
 
 	const navig = () => {
-		props.navigation.navigate('Cards'); // Profile
+		props.navigation.navigate('Profile'); // Profile
 	};
 
 	const renderItem = ({item}: {item: Date}): JSX.Element => (
@@ -68,11 +68,11 @@ const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 				ListHeaderComponent={
 					<View style={styles.paddingTop30}>
 						<View>
-							<Text style={styles.moneyBig}>
+							<Typography style={styles.moneyBig}>
 								$1,500
-								<Text style={styles.moneyLittle}>.20</Text>
-							</Text>
-							<Text style={styles.totalAvailableCash}>Total Available Cash</Text>
+								<Typography style={styles.moneyLittle}>.20</Typography>
+							</Typography>
+							<Typography style={styles.totalAvailableCash}>Total Available Cash</Typography>
 						</View>
 						<View style={styles.listHeader}>
 							<TextInput
@@ -82,7 +82,7 @@ const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 								placeholderTextColor="grey"
 							/>
 							<TouchableOpacity style={styles.buttonFilter}>
-								<Text style={styles.littleGreyText}>Filter by</Text>
+								<Typography style={styles.littleGreyText}>Filter by</Typography>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -93,7 +93,7 @@ const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 };
 
 const useStyles = StyleSheet.create(
-	(): ICheckingStyles => ({
+	(theme: ReactNativePaper.Theme): ICheckingStyles => ({
 		mainView: {flex: 1, paddingBottom: 30},
 		totalAvailableCash: {
 			alignSelf: 'center',
@@ -122,6 +122,7 @@ const useStyles = StyleSheet.create(
 			marginLeft: 20,
 			marginBottom: 5,
 			fontSize: 16,
+			color: theme.colors.text,
 		},
 		listHeader: {
 			flexDirection: 'row',
@@ -130,7 +131,6 @@ const useStyles = StyleSheet.create(
 			marginTop: 25,
 		},
 		inputButton: {
-			backgroundColor: 'white',
 			width: '70%',
 			height: 30,
 			borderRadius: 25,

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useTheme} from 'react-native-paper';
+import {CustomDefaultTheme, CustomDarkTheme} from '../../../../theme';
 import {ISavingsListStyles} from '../../../../types/saving';
 import {listSavings} from '../../../../utils/mockLists';
 
@@ -90,10 +91,14 @@ const useStyles = StyleSheet.create(
 		width190: {maxWidth: '50%'},
 		marginRight5: {marginRight: 5},
 		colorGreen: {color: theme.colors.accent},
-		fontSize15: {fontSize: 15},
-		fontSize10: {fontSize: 10},
-		fontSize25: {fontSize: 25},
-		fontSize20: {fontSize: 20},
-		paddingVertical20: {paddingVertical: 20},
+		fontSize15: {fontSize: 15, color: theme.colors.text},
+		fontSize10: {fontSize: 10, color: theme.colors.text},
+		fontSize25: {fontSize: 25, color: theme.colors.text},
+		fontSize20: {fontSize: 20, color: theme.colors.text},
+		paddingVertical20: {
+			paddingVertical: 20,
+			backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.content}`,
+			borderRadius: 10,
+		},
 	}),
 );

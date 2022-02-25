@@ -6,6 +6,7 @@ import {useTheme} from 'react-native-paper';
 import {ICheckingListStyles} from '../../../../types/checking';
 import {list10, list11} from '../../../../utils/mockLists';
 import Birthday from '../../../../../assets/Image/confetti2.png';
+import {CustomDefaultTheme, CustomDarkTheme} from '../../../../theme';
 
 export const ListOfJul11 = () => {
 	const theme = useTheme();
@@ -165,13 +166,16 @@ const useStyles = StyleSheet.create(
 			justifyContent: 'flex-end',
 			flex: 1,
 		},
-		borderRadius10: {borderRadius: 10},
+		borderRadius10: {
+			borderRadius: 10,
+			backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.content}`,
+		},
 		flexRow: {flexDirection: 'row'},
 		width190: {maxWidth: '50%'},
 		alignCenter: {alignItems: 'center'},
-		marginRight5: {marginRight: 5},
+		marginRight5: {marginRight: 5, color: theme.colors.text},
 		colorGreen: {color: theme.colors.accent},
-		fontSize25: {fontSize: 25},
-		fontSize20: {fontSize: 20},
+		fontSize25: {fontSize: 25, color: theme.colors.text},
+		fontSize20: {fontSize: 20, color: theme.colors.text},
 	}),
 );

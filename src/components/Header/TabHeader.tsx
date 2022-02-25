@@ -19,7 +19,7 @@ interface Props {
 const TabHeader: React.FC<Props> = props => {
 	const theme = useTheme();
 	const {headerText} = props;
-	const styles = useStyles(headerText || 'no Name');
+	const styles = useStyles(headerText || 'no Name', theme);
 	return (
 		<Appbar.Header
 			theme={{
@@ -48,11 +48,12 @@ const TabHeader: React.FC<Props> = props => {
 };
 
 const useStyles = StyleSheet.create(
-	(headerText: string): IStyle => ({
+	(headerText: string, theme: ReactNativePaper.Theme): IStyle => ({
 		headerView: {
 			alignItems: 'center',
 			elevation: 2,
 			zIndex: 2,
+			backgroundColor: theme.colors.primary,
 		},
 		headerText: {
 			fontWeight: '700',

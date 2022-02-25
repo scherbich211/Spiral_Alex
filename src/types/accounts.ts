@@ -25,7 +25,7 @@ export interface IAccountsListStyle {
 	greenTextUp: TextStyle;
 	borderRadius10: ViewStyle;
 	maxWidth190: ViewStyle;
-	marginRight5: ViewStyle;
+	marginRight5: TextStyle;
 	fontSize25: TextStyle;
 	fontSize20: TextStyle;
 }

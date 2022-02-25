@@ -33,6 +33,8 @@ export const CustomDefaultTheme = {
 		placeholder: '#7D7D7D',
 		disabled: 'rgba(125, 125, 125, 0.5)',
 		input: '#E1E1E1',
+		backdrop: '#121212',
+		content: 'white',
 	},
 };
 
@@ -42,13 +44,15 @@ export const CustomDarkTheme = {
 	colors: {
 		...NavigationDarkTheme.colors,
 		...PaperDarkTheme.colors,
-		primary: '#C81A7C',
+		primary: '#481C4F',
 		accent: '#62CA88',
-		background: '#32333D',
+		background: '#47495A',
 		text: '#FFFFFF',
 		placeholder: '#7D7D7D',
 		disabled: 'rgba(125, 125, 125, 0.5)',
 		input: '#47495A',
+		backdrop: '#121212',
+		content: '#32333D',
 	},
 };
 

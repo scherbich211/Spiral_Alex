@@ -29,7 +29,7 @@ export interface IListStyle {
 	subtitle: TextStyle;
 	fontSize25: TextStyle;
 	fontSize20: TextStyle;
-	marginRight5: ViewStyle;
+	marginRight5: TextStyle;
 	rowCenter: ViewStyle;
 	width190: ViewStyle;
 	row: ViewStyle;

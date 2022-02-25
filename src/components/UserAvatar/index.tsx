@@ -1,11 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {TouchableWithoutFeedback, StyleSheet, Modal, Platform, View} from 'react-native';
-
 import {Avatar, ListItem} from 'react-native-elements';
-
-import avatarImage from '../../../assets/Image/pidor.png';
 import {AuthContext} from '../../AuthProvider';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {clearProfileInfo} from '../../redux/reducers/profile';
 import {clearUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
@@ -25,6 +22,7 @@ interface IProps {
 const UserAvatar: React.FC<IProps> = props => {
 	const {logout} = useContext(AuthContext);
 	const dispatch = useAppDispatch();
+	const {avatar} = useAppSelector(state => state.profile);
 	const [userMenuVisible, setUserMenuVisible] = useState(false);
 
 	const hideUserMenu = () => {
@@ -46,7 +44,7 @@ const UserAvatar: React.FC<IProps> = props => {
 
 	return (
 		<View>
-			<Avatar rounded source={avatarImage} onPress={showUserMenu} />
+			<Avatar rounded source={{uri: avatar}} onPress={showUserMenu} />
 			<Modal visible={userMenuVisible} transparent>
 				<TouchableWithoutFeedback onPress={hideUserMenu}>
 					<View style={styles.userMenuOverlay} />

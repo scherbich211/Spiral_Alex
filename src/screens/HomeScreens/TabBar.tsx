@@ -10,7 +10,7 @@ import HomeStackScreen from './TabBarScreens/Home/index';
 import AccountsStackScreen from './TabBarScreens/Accounts/index';
 import GivingStackScreen from './TabBarScreens/Giving/index';
 import CardsStackScreen from './TabBarScreens/Cards/index';
-import {SIZES} from '../../theme';
+import {CustomDefaultTheme, CustomDarkTheme, SIZES} from '../../theme';
 import {TabBarStackParamList} from '../../types';
 import PaymentsScreen from './TabBarScreens/Payments/index';
 
@@ -22,7 +22,7 @@ export interface TabBarStyles {
 
 const TabNavigator = () => {
 	const theme = useTheme();
-	const styles = useStyles();
+	const styles = useStyles(theme);
 	const Tab = createBottomTabNavigator<TabBarStackParamList>();
 
 	return (
@@ -110,11 +110,12 @@ const TabNavigator = () => {
 };
 
 const useStyles = StyleSheet.create(
-	(): TabBarStyles => ({
+	(theme: ReactNativePaper.Theme): TabBarStyles => ({
 		imageTabBar: {marginTop: 10},
 		textTabBar: {fontSize: 12, marginTop: 5},
 		tabBar: {
 			height: Platform.OS === 'ios' ? SIZES.height * 0.1 : SIZES.height * 0.09,
+			backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.backdrop}`,
 		},
 	}),
 );

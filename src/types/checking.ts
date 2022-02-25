@@ -27,7 +27,7 @@ export interface ICheckingListStyles {
 	flexRow: ViewStyle;
 	width190: ViewStyle;
 	alignCenter: ViewStyle;
-	marginRight5: ViewStyle;
+	marginRight5: TextStyle;
 	colorGreen: TextStyle;
 	fontSize25: TextStyle;
 	fontSize20: TextStyle;

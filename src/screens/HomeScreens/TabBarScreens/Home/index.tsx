@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StatusBar, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useTheme} from 'react-native-paper';
+import {ActivityIndicator, useTheme} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DrawerActions} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import {useDispatch} from 'react-redux';
 import {ListOf} from './List';
 import {
 	ButtonShare,
@@ -19,6 +21,9 @@ import UserAvatar from '../../../../components/UserAvatar';
 import {IHomeScreenStyles} from '../../../../types/home';
 import {RootStackParamList} from '../../../../types';
 import {IListData} from '../../../../utils/mockLists';
+import {AuthContext} from '../../../../AuthProvider';
+import {changeAvatarRedux, changeProfileInfo} from '../../../../redux/reducers/profile';
+import {CustomDarkTheme, CustomDefaultTheme} from '../../../../theme';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -26,9 +31,23 @@ interface IProps {
 	navigation: HomeScreenNavigationProp;
 }
 
+interface Data {
+	name: string;
+	DoB: string;
+	filePath: string;
+}
+
 const HomeScreen: React.FC<IProps> = props => {
+	const {user} = useContext(AuthContext);
 	const theme = useTheme();
-	const styles = useStyles();
+	const styles = useStyles(theme);
+	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(false);
+	const [data, setData] = useState<Data>({
+		name: '',
+		DoB: '',
+		filePath: '',
+	});
 	const navig = () => {
 		props.navigation.navigate('Profile');
 	};
@@ -36,18 +55,52 @@ const HomeScreen: React.FC<IProps> = props => {
 		props.navigation.navigate(screen.title);
 	};
 
+	useEffect(() => {
+		if (data.name.length !== 0) {
+			dispatch(changeProfileInfo({name: data.name, birth: data.DoB}));
+			dispatch(changeAvatarRedux(data.filePath));
+		}
+	}, [data]);
+
+	useEffect(() => {
+		const getUser = async () => {
+			setIsLoading(true);
+			await firestore()
+				.collection('users')
+				.doc(user.uid)
+				.get()
+				.then(documentSnapshot => {
+					if (documentSnapshot.exists) {
+						console.log('User Data', documentSnapshot.data());
+						setData({
+							...data,
+							name: documentSnapshot.data()?.fullName,
+							DoB: documentSnapshot.data()?.userBirth,
+							filePath: documentSnapshot.data()?.userImg,
+						});
+					}
+				});
+			setIsLoading(false);
+		};
+		getUser();
+	}, []);
+
 	return (
 		<View style={styles.mainView}>
 			<StatusBar barStyle="dark-content" />
 			<TabHeader
 				beforeText={
 					<View>
-						<Icon.Button
-							name="ios-menu"
-							size={25}
-							backgroundColor={theme.colors.primary}
-							onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
-						/>
+						{!isLoading ? (
+							<Icon.Button
+								name="ios-menu"
+								size={25}
+								backgroundColor={theme.colors.primary}
+								onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
+							/>
+						) : (
+							<ActivityIndicator size="small" />
+						)}
 					</View>
 				}
 				headerText="Spiral">
@@ -77,13 +130,13 @@ const HomeScreen: React.FC<IProps> = props => {
 };
 
 const useStyles = StyleSheet.create(
-	(): IHomeScreenStyles => ({
+	(theme: ReactNativePaper.Theme): IHomeScreenStyles => ({
 		mainView: {flex: 1},
 		container: {
 			margin: 10,
 		},
 		partsContainer: {
-			backgroundColor: 'white',
+			backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.content}`,
 			borderRadius: 5,
 			marginBottom: 20,
 		},

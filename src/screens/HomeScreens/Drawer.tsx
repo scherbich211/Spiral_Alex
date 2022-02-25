@@ -6,6 +6,7 @@ import SavingsStackScreen from './AdditionalScreens/Saving';
 import {DrawerStackParamList} from '../../types';
 import {DrawerContent} from './DrawerComponent';
 import Profile from './AdditionalScreens/Profile/Profile';
+import GoodnessScreen from './AdditionalScreens/Goodness';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 
@@ -16,7 +17,7 @@ const DrawerNavigator = () => {
 			<Drawer.Screen name="HomeDrawer" component={TabNavigator} />
 			<Drawer.Screen name="Checking" component={CheckingStackScreen} />
 			<Drawer.Screen name="Savings" component={SavingsStackScreen} />
-			<Drawer.Screen name="Goodness" component={SavingsStackScreen} />
+			<Drawer.Screen name="Goodness" component={GoodnessScreen} />
 			<Drawer.Screen name="Profile" component={Profile} />
 		</Drawer.Navigator>
 	);

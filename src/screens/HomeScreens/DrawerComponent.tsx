@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {DrawerContentScrollView, DrawerItem, DrawerContentComponentProps} from '@react-navigation/drawer';
 import {Avatar, Text, Title, Paragraph, Drawer, Caption, TouchableRipple, Switch, useTheme} from 'react-native-paper';
@@ -7,19 +7,25 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {useAppDispatch} from '../../hooks';
-import {clearProfileInfo} from '../../redux/reducers/profile';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeDarkMode, clearProfileInfo} from '../../redux/reducers/profile';
 import {changeUserIsLoggedIn, clearUserInfo} from '../../redux/reducers/user';
-import Pidor from '../../../assets/Image/pidor.png';
 import {AuthContext} from '../../AuthProvider';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
 	const {logout} = useContext(AuthContext);
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
-	const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+	const {
+		avatar,
+		darkMode,
+		userInfo: {name},
+	} = useAppSelector(state => state.profile);
+	const {email} = useAppSelector(state => state.user.login);
+
 	const toggleTheme = () => {
-		setIsDarkTheme(!isDarkTheme);
+		console.log(1);
+		dispatch(changeDarkMode(!darkMode));
 	};
 
 	const SignOut = () => {
@@ -35,10 +41,10 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 				<View style={styles.drawerContent}>
 					<View style={styles.useInfoSection}>
 						<View style={styles.instaContainer}>
-							<Avatar.Image source={Pidor} />
+							<Avatar.Image source={{uri: avatar}} />
 							<View style={styles.boldText}>
-								<Title style={styles.title}>Bald Dick</Title>
-								<Caption style={styles.caption}>@balddick</Caption>
+								<Title style={styles.title}>{name}</Title>
+								<Caption style={styles.caption}>{email}</Caption>
 							</View>
 						</View>
 						<View style={styles.row}>
@@ -97,7 +103,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 							<View style={styles.preference}>
 								<Text>Dark Theme</Text>
 								<View pointerEvents="none">
-									<Switch value={isDarkTheme} />
+									<Switch value={darkMode} />
 								</View>
 							</View>
 						</TouchableRipple>
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 	},
 	instaContainer: {flexDirection: 'row', marginTop: 15},
-	boldText: {marginLeft: 15, flexDirection: 'column'},
+	boldText: {marginLeft: 15, flexDirection: 'column', width: '50%'},
 });
 
 export default styles;

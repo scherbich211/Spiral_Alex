@@ -13,7 +13,6 @@ import FileImage from '../../../../../assets/Image/file.png';
 import {RootStackParamList} from '../../../../types';
 import TabHeader from '../../../../components/Header/TabHeader';
 import {IProfileStyle} from '../../../../types/profile';
-import Typography from '../../../../components/Typography';
 import {AuthContext} from '../../../../AuthProvider';
 
 interface Data {
@@ -35,7 +34,6 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 	const styles = useStyles(theme);
 	const [image, setImage] = useState('');
 	const [upload, setUpload] = useState(false);
-	const [transfered, setTransfered] = useState(0);
 	// ----------everything with input and text-------------------------------------------------------
 
 	const [data, setData] = useState<Data>({
@@ -56,9 +54,9 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 					console.log('User Data', documentSnapshot.data());
 					setData({
 						...data,
-						name: documentSnapshot.data().fullName,
-						DoB: documentSnapshot.data().userBirth,
-						filePath: documentSnapshot.data().userImg,
+						name: documentSnapshot.data()?.fullName,
+						DoB: documentSnapshot.data()?.userBirth,
+						filePath: documentSnapshot.data()?.userImg,
 					});
 				}
 			});
@@ -74,7 +72,7 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 			.update({
 				fullName: data.name,
 				userBirth: data.DoB,
-				userImg: imgUrl,
+				userImg: imgUrl || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
 			})
 			.then(() => {
 				console.log('User Updated!');
@@ -83,32 +81,33 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 	};
 
 	const uploadImage = async () => {
-		let fileName = image.substring(image.lastIndexOf('/') + 1);
+		if (image) {
+			let fileName = image.substring(image.lastIndexOf('/') + 1);
 
-		const extension = fileName.split('.').pop();
-		const nameFile = fileName.split('.').slice(0, -1).join('.');
-		fileName = `${nameFile + Date.now()}.${extension}`;
+			const extension = fileName.split('.').pop();
+			const nameFile = fileName.split('.').slice(0, -1).join('.');
+			fileName = `${nameFile + Date.now()}.${extension}`;
 
-		setUpload(true);
-		setTransfered(0);
+			setUpload(true);
 
-		const storageRef = storage().ref(`photos/${fileName}`);
-		const task = storageRef.putFile(image);
+			const storageRef = storage().ref(`photos/${fileName}`);
+			const task = storageRef.putFile(image);
 
-		task.on('state_changed', taskSnapshot => {
-			console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+			task.on('state_changed', taskSnapshot => {
+				console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+			});
+			try {
+				await task;
+				const url = await storageRef.getDownloadURL();
 
-			setTransfered(Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100);
-		});
-		try {
-			await task;
-			const url = await storageRef.getDownloadURL();
-
-			setUpload(false);
-			Alert.alert('done');
-			return url;
-		} catch (error) {
-			console.log(error);
+				setUpload(false);
+				Alert.alert('done');
+				return url;
+			} catch (error) {
+				console.log(error);
+				return null;
+			}
+		} else {
 			return null;
 		}
 	};
@@ -340,7 +339,6 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 					<View style={styles.containerPart}>
 						{upload ? (
 							<View style={styles.containerPart}>
-								<Typography>{transfered}</Typography>
 								<ActivityIndicator size="large" />
 							</View>
 						) : (
@@ -350,8 +348,8 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 										source={{
 											uri: data
 												? data.filePath ||
-												  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
-												: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+												  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+												: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
 										}}
 										style={styles.Image}
 									/>
@@ -377,7 +375,6 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 					<View style={styles.containerPart}>
 						{upload ? (
 							<View style={styles.containerPart}>
-								<Typography>{transfered}</Typography>
 								<ActivityIndicator size="large" />
 							</View>
 						) : (
@@ -388,8 +385,8 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 											image ||
 											(data
 												? data.filePath ||
-												  'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
-												: 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'),
+												  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+												: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
 									}}
 									style={styles.Image}
 								/>
@@ -475,7 +472,7 @@ const useStyles = StyleSheet.create(
 		textInput: {
 			flexDirection: 'row',
 			width: 300,
-			borderBottomColor: 'grey',
+			borderBottomColor: theme.colors.primary,
 			borderBottomWidth: 2,
 			justifyContent: 'space-between',
 			alignItems: 'center',

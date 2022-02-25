@@ -9,6 +9,7 @@ import {ListData} from './List';
 import Graphic from '../../../../../assets/Image/savingsGraphV2.png';
 import TabHeader from '../../../../components/Header/TabHeader';
 import UserAvatar from '../../../../components/UserAvatar';
+import Typography from '../../../../components/Typography';
 
 type SavingsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Savings'>;
 
@@ -25,7 +26,7 @@ const SavingsScreen: React.FC<IProps> = (props): JSX.Element => {
 	const styles = useStyles();
 
 	const navig = () => {
-		props.navigation.navigate('Cards'); // Profile
+		props.navigation.navigate('Profile'); // Profile
 	};
 
 	const renderItem = () => (
@@ -60,11 +61,11 @@ const SavingsScreen: React.FC<IProps> = (props): JSX.Element => {
 					<View>
 						<View style={styles.headerBackground}>
 							<View>
-								<Text style={styles.moneyBig}>
+								<Typography style={styles.moneyBig}>
 									$5,000
-									<Text style={styles.moneyLittle}>.20</Text>
-								</Text>
-								<Text style={styles.totalAvailableCash}>Total Available Cash</Text>
+									<Typography style={styles.moneyLittle}>.20</Typography>
+								</Typography>
+								<Typography style={styles.totalAvailableCash}>Total Available Cash</Typography>
 							</View>
 							<View style={styles.imageContainer}>
 								<Image source={Graphic} style={styles.styleImage} />
@@ -72,11 +73,11 @@ const SavingsScreen: React.FC<IProps> = (props): JSX.Element => {
 						</View>
 						<View style={styles.viewInterestGoodness}>
 							<View style={{...styles.viewInterestGoodnessView, ...styles.marginBottom10}}>
-								<Text style={styles.viewInterestGoodnessText}>Total interest gained</Text>
-								<Text style={styles.viewInterestGoodnessAmount}>+$50.00</Text>
+								<Typography style={styles.viewInterestGoodnessText}>Total interest gained</Typography>
+								<Typography style={styles.viewInterestGoodnessAmount}>+$50.00</Typography>
 							</View>
 							<View style={styles.viewInterestGoodnessView}>
-								<Text style={styles.viewInterestGoodnessText}>Goodness points Gained</Text>
+								<Typography style={styles.viewInterestGoodnessText}>Goodness points Gained</Typography>
 								<Text style={styles.viewInterestGoodnessAmount}>+$600</Text>
 							</View>
 						</View>
@@ -88,7 +89,7 @@ const SavingsScreen: React.FC<IProps> = (props): JSX.Element => {
 								placeholderTextColor="grey"
 							/>
 							<TouchableOpacity style={styles.buttonFilter}>
-								<Text style={styles.littleGreyText}>Filter by</Text>
+								<Typography style={styles.littleGreyText}>Filter by</Typography>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -128,7 +129,6 @@ const useStyles = StyleSheet.create(
 			alignContent: 'center',
 		},
 		inputButton: {
-			backgroundColor: 'white',
 			width: '70%',
 			height: 30,
 			borderRadius: 25,
@@ -156,7 +156,6 @@ const useStyles = StyleSheet.create(
 		},
 		headerBackground: {
 			paddingTop: 30,
-			backgroundColor: 'white',
 		},
 		viewInterestGoodness: {
 			marginHorizontal: 35,

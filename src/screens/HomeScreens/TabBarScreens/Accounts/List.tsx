@@ -3,6 +3,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useTheme} from 'react-native-paper';
+import {CustomDefaultTheme, CustomDarkTheme} from '../../../../theme';
 import {IAccountsListStyle} from '../../../../types/accounts';
 import {IListData, list} from '../../../../utils/mockLists';
 // import Icon from "react-native-vector-icons/Ionicons";
@@ -107,10 +108,13 @@ const useStyles = StyleSheet.create(
 			fontSize: 14,
 			fontWeight: '600',
 		},
-		borderRadius10: {borderRadius: 10},
+		borderRadius10: {
+			borderRadius: 10,
+			backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.content}`,
+		},
 		maxWidth190: {maxWidth: '50%'},
-		marginRight5: {marginRight: 5},
-		fontSize25: {fontSize: 25},
-		fontSize20: {fontSize: 20},
+		marginRight5: {marginRight: 5, color: theme.colors.text},
+		fontSize25: {fontSize: 25, color: theme.colors.text},
+		fontSize20: {fontSize: 20, color: theme.colors.text},
 	}),
 );

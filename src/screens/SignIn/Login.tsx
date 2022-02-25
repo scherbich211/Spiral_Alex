@@ -16,7 +16,7 @@ import {ILoginStyle} from '../../types/Login';
 import {SIZES} from '../../theme';
 import {RootStackParamList} from '../../types';
 import {AuthContext} from '../../AuthProvider';
-import {changeUserIsLoggedIn} from '../../redux/reducers/user';
+import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 import ButtonCustom from '../../components/Button';
 
 type LogScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -59,6 +59,7 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 		await login(getValues('login'), getValues('password'));
 		setIsLoading(false);
 		dispatch(changeUserIsLoggedIn(true));
+		dispatch(changeUserInfo({email: getValues('login'), password: getValues('password')}));
 	};
 	return (
 		<KeyboardAwareScrollView>

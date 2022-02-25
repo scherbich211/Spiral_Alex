@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useTheme} from 'react-native-paper';
+import {CustomDarkTheme, CustomDefaultTheme} from '../../../../theme';
 import {IListStyle} from '../../../../types/home';
 import {IListData, list} from '../../../../utils/mockLists';
 
@@ -11,12 +12,15 @@ interface IProps {
 
 export const ListOf: React.FC<IProps> = props => {
 	const theme = useTheme();
-	const styles = useStyles();
+	const styles = useStyles(theme);
 	return (
 		<View>
 			{list.map(item => (
 				<ListItem
 					key={item.id}
+					containerStyle={{
+						backgroundColor: `${theme === CustomDefaultTheme ? 'white' : CustomDarkTheme.colors.content}`,
+					}}
 					bottomDivider
 					onPress={props.cardsScreens(item)}
 					hasTVPreferredFocus={undefined}
@@ -47,20 +51,18 @@ export const ListOf: React.FC<IProps> = props => {
 };
 
 const useStyles = StyleSheet.create(
-	(): IListStyle => ({
+	(theme: ReactNativePaper.Theme): IListStyle => ({
 		title: {
-			color: 'white',
 			fontWeight: 'bold',
 			fontSize: 20,
 			alignSelf: 'center',
 		},
 		subtitle: {
-			color: 'white',
 			fontSize: 10,
 		},
-		fontSize25: {fontSize: 25},
-		fontSize20: {fontSize: 20},
-		marginRight5: {marginRight: 5},
+		fontSize25: {fontSize: 25, color: theme.colors.text},
+		fontSize20: {fontSize: 20, color: theme.colors.text},
+		marginRight5: {marginRight: 5, color: theme.colors.text},
 		rowCenter: {
 			flexDirection: 'row',
 			alignItems: 'center',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Image, StatusBar, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'react-native-paper';
@@ -13,6 +13,7 @@ import SendImage from '../../../../../assets/Image/circleButtonSend.png';
 import PayImage from '../../../../../assets/Image/circleButtonPay.png';
 import CheckImage from '../../../../../assets/Image/circleButtonChecking.png';
 import {cents, dollars, IListData} from '../../../../utils/mockLists';
+import Typography from '../../../../components/Typography';
 
 type AccountsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Accounts'>;
 
@@ -55,24 +56,24 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 				<View>
 					<View style={styles.paddingTop30}>
 						<View>
-							<Text style={styles.moneyBig}>
+							<Typography style={styles.moneyBig}>
 								${dollars.reduce((a, b) => a + b, 0)}
-								<Text style={styles.moneyLittle}>.{cents.reduce((a, b) => a + b, 0)}</Text>
-							</Text>
-							<Text style={styles.totalAvailableCash}>Total Available Cash</Text>
+								<Typography style={styles.moneyLittle}>.{cents.reduce((a, b) => a + b, 0)}</Typography>
+							</Typography>
+							<Typography style={styles.totalAvailableCash}>Total Available Cash</Typography>
 						</View>
 						<View style={styles.viewImages}>
 							<View style={styles.viewTextImage}>
 								<Image source={SendImage} style={styles.horizontalImage20} />
-								<Text style={styles.textUnderImage}>Send</Text>
+								<Typography style={styles.textUnderImage}>Send</Typography>
 							</View>
 							<View style={styles.viewTextImage}>
 								<Image source={PayImage} style={styles.horizontalImage20} />
-								<Text style={styles.textUnderImage}>Pay</Text>
+								<Typography style={styles.textUnderImage}>Pay</Typography>
 							</View>
 							<View style={styles.viewTextImage}>
 								<Image source={CheckImage} style={styles.horizontalImage20} />
-								<Text style={styles.textUnderImage}>Transfer</Text>
+								<Typography style={styles.textUnderImage}>Transfer</Typography>
 							</View>
 						</View>
 					</View>

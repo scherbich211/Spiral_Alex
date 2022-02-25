@@ -12,7 +12,7 @@ import ButtonCustom from '../../components/Button';
 import {FormDataToPassword} from '../../types';
 import {useAppDispatch, useVisiability} from '../../hooks';
 import {AuthContext} from '../../AuthProvider';
-import {changeUserIsLoggedIn} from '../../redux/reducers/user';
+import {changeUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 export interface ICFormDataPassword {
 	password: string;
@@ -56,9 +56,11 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 	});
 
 	const onSubmit = async () => {
+		console.log(props.route.params.userInfo.email, getValues('password'));
 		setIsLoading(true);
 		await register(props.route.params.userInfo.email, getValues('password'));
 		setIsLoading(false);
+		dispatch(changeUserInfo({email: props.route.params.userInfo.email, password: getValues('password')}));
 		dispatch(changeUserIsLoggedIn(true));
 	};
 
