@@ -18,6 +18,9 @@ export const profileSlice = createSlice({
 		clearProfileInfo: state => {
 			state.userInfo = initialState.userInfo;
 		},
+		clearAvatar: state => {
+			state.avatar = initialState.avatar;
+		},
 		changeAvatarRedux: (state, action: PayloadAction<IProfile['avatar']>) => {
 			state.avatar = action.payload;
 		},
@@ -32,6 +35,6 @@ export const profileSlice = createSlice({
 
 const {actions, reducer} = profileSlice;
 
-export const {clearProfileInfo, changeAvatarRedux, changeDarkMode, changeProfileInfo} = actions;
+export const {clearProfileInfo, changeAvatarRedux, changeDarkMode, changeProfileInfo, clearAvatar} = actions;
 
 export default reducer;

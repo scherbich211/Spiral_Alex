@@ -63,7 +63,7 @@ export const AuthProvider = ({children}) => {
 					try {
 						await auth().signOut();
 					} catch (e) {
-						Alert.alert(String(e));
+						console.log(e);
 					}
 				},
 			}}>

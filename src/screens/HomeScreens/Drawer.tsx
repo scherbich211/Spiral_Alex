@@ -5,7 +5,7 @@ import CheckingStackScreen from './AdditionalScreens/Checking';
 import SavingsStackScreen from './AdditionalScreens/Saving';
 import {DrawerStackParamList} from '../../types';
 import {DrawerContent} from './DrawerComponent';
-import Profile from './AdditionalScreens/Profile/Profile';
+import Profile from './AdditionalScreens/Profile';
 import GoodnessScreen from './AdditionalScreens/Goodness';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();

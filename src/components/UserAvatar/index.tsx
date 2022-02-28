@@ -3,7 +3,7 @@ import {TouchableWithoutFeedback, StyleSheet, Modal, Platform, View} from 'react
 import {Avatar, ListItem} from 'react-native-elements';
 import {AuthContext} from '../../AuthProvider';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {clearProfileInfo} from '../../redux/reducers/profile';
+import {clearAvatar, clearProfileInfo} from '../../redux/reducers/profile';
 import {clearUserInfo, changeUserIsLoggedIn} from '../../redux/reducers/user';
 
 const styles = StyleSheet.create({
@@ -33,12 +33,15 @@ const UserAvatar: React.FC<IProps> = props => {
 	};
 
 	const SignOut = () => {
+		hideUserMenu();
 		dispatch(clearProfileInfo);
 		dispatch(clearUserInfo);
+		dispatch(clearAvatar);
 		dispatch(changeUserIsLoggedIn(false));
 		logout();
 	};
 	const Profile = () => {
+		hideUserMenu();
 		props.navig();
 	};
 

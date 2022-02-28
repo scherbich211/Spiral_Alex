@@ -5,9 +5,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
-import {useDispatch} from 'react-redux';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {useAppSelector} from './hooks';
+import {useAppDispatch, useAppSelector} from './hooks';
 import {CustomDefaultTheme, CustomDarkTheme, PreferencesContext} from './theme';
 import {RootStackParamList} from './types';
 import store from './redux/store';
@@ -26,7 +25,7 @@ const Main = () => {
 	const [initializing, setInitializing] = useState(true);
 	const {isLoggedIn} = useAppSelector(state => state.user);
 	const darkMode = useAppSelector(state => state.profile.darkMode);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const theme = darkMode ? CustomDarkTheme : CustomDefaultTheme;
 

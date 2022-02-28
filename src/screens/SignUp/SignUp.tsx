@@ -10,9 +10,6 @@ import Layout from '../../components/Layout';
 import {RootStackParamList, SingUpStackParamList} from '../../types';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import {IUsers} from '../../types/databaseReducer';
-
-export type RegisterForm = IUsers;
 
 export interface FormData {
 	email: string;
@@ -56,31 +53,23 @@ const Registration: React.FC<Props> = ({navigation}) => {
 	return (
 		<KeyboardAwareScrollView contentContainerStyle={styles.containerScrollView}>
 			<ScrollView contentContainerStyle={styles.buttonGroup}>
-				<Layout>
-					<View>
-						<View>
-							<Header>Registration</Header>
-							<View>
-								<View>
-									<Controller
-										control={control}
-										render={({field: {onChange, value, onBlur}}) => (
-											<TextInput
-												onChangeText={onChange}
-												onBlur={onBlur}
-												value={value === undefined ? value : value.trimLeft().replace(/\s+/g, ' ')}
-												label="Email*"
-												keyboardType="email-address"
-												error={Boolean(errors.email)}
-												style={styles.input}
-											/>
-										)}
-										name="email"
-									/>
-								</View>
-							</View>
-						</View>
-					</View>
+				<Layout style={styles.layoutStyle}>
+					<Header>Registration</Header>
+					<Controller
+						control={control}
+						render={({field: {onChange, value, onBlur}}) => (
+							<TextInput
+								onChangeText={onChange}
+								onBlur={onBlur}
+								value={value === undefined ? value : value.trimLeft().replace(/\s+/g, ' ')}
+								label="Email*"
+								keyboardType="email-address"
+								error={Boolean(errors.email)}
+								style={styles.input}
+							/>
+						)}
+						name="email"
+					/>
 				</Layout>
 				<View style={styles.buttons}>
 					<View>
@@ -104,10 +93,11 @@ const styles = StyleSheet.create({
 		height: '100%',
 		flex: 1,
 	},
-	input: {marginBottom: 16},
+	input: {marginTop: 16},
 	buttonGroup: {display: 'flex', flexGrow: 1, justifyContent: 'space-between'},
 	buttons: {marginHorizontal: 20},
 	buttonsTop: {
 		marginTop: 8,
 	},
+	layoutStyle: {flex: 1, justifyContent: 'flex-start'},
 });

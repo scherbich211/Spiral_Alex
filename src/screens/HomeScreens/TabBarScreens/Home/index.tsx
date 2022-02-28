@@ -6,7 +6,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DrawerActions} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
-import {useDispatch} from 'react-redux';
 import {ListOf} from './List';
 import {
 	ButtonShare,
@@ -24,6 +23,7 @@ import {IListData} from '../../../../utils/mockLists';
 import {AuthContext} from '../../../../AuthProvider';
 import {changeAvatarRedux, changeProfileInfo} from '../../../../redux/reducers/profile';
 import {CustomDarkTheme, CustomDefaultTheme} from '../../../../theme';
+import {useAppDispatch} from '../../../../hooks';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -41,7 +41,7 @@ const HomeScreen: React.FC<IProps> = props => {
 	const {user} = useContext(AuthContext);
 	const theme = useTheme();
 	const styles = useStyles(theme);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const [isLoading, setIsLoading] = useState(false);
 	const [data, setData] = useState<Data>({
 		name: '',

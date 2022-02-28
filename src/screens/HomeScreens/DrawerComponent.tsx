@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeDarkMode, clearProfileInfo} from '../../redux/reducers/profile';
+import {changeDarkMode, clearAvatar, clearProfileInfo} from '../../redux/reducers/profile';
 import {changeUserIsLoggedIn, clearUserInfo} from '../../redux/reducers/user';
 import {AuthContext} from '../../AuthProvider';
 
@@ -31,6 +31,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 	const SignOut = () => {
 		dispatch(clearProfileInfo);
 		dispatch(clearUserInfo);
+		dispatch(clearAvatar);
 		dispatch(changeUserIsLoggedIn(false));
 		logout();
 	};

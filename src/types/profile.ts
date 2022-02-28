@@ -1,43 +1,21 @@
-import {TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
 
 export interface IProfileStyle {
-	container: {
-		flex: number;
-	};
-	Image: {
-		width: number;
-		height: number;
-		borderRadius: number;
-		marginTop: number;
-		marginBottom: number;
-	};
-	ButtonCont: {
-		marginTop: number;
-	};
+	container: ViewStyle;
+	Image: ImageStyle;
+	ButtonCont: ViewStyle;
 	editButton: ViewStyle;
 	editButtonText: TextStyle;
 	textInput: ViewStyle;
-	errorMess: {
-		color: string;
-	};
+	errorMess: TextStyle;
 	applyCancelButton: ViewStyle;
 	containerPart: ViewStyle;
 	greyText: TextStyle;
 	nameDOB: TextStyle;
 	viewCameraFile: ViewStyle;
-	cameraIcon: {
-		width: number;
-		height: number;
-		borderRadius: number;
-		tintColor: string;
-		backgroundColor: string;
-	};
-	fileIcon: {
-		width: number;
-		height: number;
-		borderRadius: number;
-		tintColor: string;
-		backgroundColor: string;
-	};
+	cameraIcon: ImageStyle;
+	fileIcon: ImageStyle;
 	viewCancelEdit: ViewStyle;
+	input: ViewStyle;
+	inputsView: ViewStyle;
 }
