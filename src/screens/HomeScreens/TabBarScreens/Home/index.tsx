@@ -87,7 +87,7 @@ const HomeScreen: React.FC<IProps> = props => {
 
 	return (
 		<View style={styles.mainView}>
-			<StatusBar barStyle="dark-content" />
+			<StatusBar barStyle="dark-content" backgroundColor={theme.colors.primary} />
 			<TabHeader
 				beforeText={
 					<View>

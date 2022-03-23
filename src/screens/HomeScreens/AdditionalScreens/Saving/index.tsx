@@ -130,7 +130,7 @@ const useStyles = StyleSheet.create(
 		},
 		inputButton: {
 			width: '70%',
-			height: 30,
+			height: 40,
 			borderRadius: 25,
 			paddingLeft: 15,
 			borderColor: 'grey',
@@ -139,7 +139,7 @@ const useStyles = StyleSheet.create(
 		},
 		buttonFilter: {
 			borderRadius: 25,
-			width: 80,
+			width: '28%',
 			height: 30,
 			borderColor: 'grey',
 			borderWidth: 1,

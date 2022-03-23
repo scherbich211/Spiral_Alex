@@ -45,11 +45,11 @@ export const NormalProfileScreen: React.FC<INormalProfileScreen> = props => {
 					</View>
 					<View>
 						<Typography style={styles.greyText}>Full Name</Typography>
-						<Typography style={styles.nameDOB}>{name}</Typography>
+						<Typography style={styles.nameDOB}>{name || 'Not entered yet'}</Typography>
 					</View>
 					<View>
 						<Typography style={styles.greyText}>Date of Birth</Typography>
-						<Typography style={styles.nameDOB}>{birth}</Typography>
+						<Typography style={styles.nameDOB}>{birth || 'Not entered yet'}</Typography>
 					</View>
 				</>
 			)}

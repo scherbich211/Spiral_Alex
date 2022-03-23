@@ -35,7 +35,7 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 
 	return (
 		<View style={styles.mainView}>
-			<StatusBar barStyle="dark-content" />
+			<StatusBar barStyle="dark-content" backgroundColor={theme.colors.primary} />
 			<TabHeader
 				beforeText={
 					<View>

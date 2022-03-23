@@ -26,7 +26,7 @@ const EmptyScreen: React.FC<IProps> = props => {
 
 	return (
 		<View style={styles.tapBar}>
-			<StatusBar barStyle="dark-content" />
+			<StatusBar barStyle="dark-content" backgroundColor={theme.colors.primary} />
 			<TabHeader
 				beforeText={
 					<View>
