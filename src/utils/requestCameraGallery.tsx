@@ -88,6 +88,7 @@ export const captureImage = async (
 								// 	...data,
 								// 	filePath: asset.uri,
 								// });
+								changeImage(asset.uri);
 							}
 						} else {
 							console.warn('no asset available');

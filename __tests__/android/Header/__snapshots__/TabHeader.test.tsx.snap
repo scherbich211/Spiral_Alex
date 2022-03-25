@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab Header Render & beforeText 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#6200ee",
+        "elevation": 2,
+        "zIndex": 2,
+      },
+      Object {
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 0.75,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 1.5,
+      },
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    nativeID="animatedComponent"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "elevation": 0,
+        "flexDirection": "row",
+        "height": 56,
+        "marginTop": "android",
+        "paddingHorizontal": 4,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        testID="Test"
+      >
+        Test
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "Roboto-Regular",
+              "fontSize": 17,
+              "fontWeight": "700",
+              "letterSpacing": 0.8,
+              "marginLeft": 187.5,
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Tab Header Render & children 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#6200ee",
+        "elevation": 2,
+        "zIndex": 2,
+      },
+      Object {
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 0.75,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 1.5,
+      },
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    nativeID="animatedComponent"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "elevation": 0,
+        "flexDirection": "row",
+        "height": 56,
+        "marginTop": "android",
+        "paddingHorizontal": 4,
+      }
+    }
+  >
+    <View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "Roboto-Regular",
+              "fontSize": 17,
+              "fontWeight": "700",
+              "letterSpacing": 0.8,
+              "marginLeft": 187.5,
+            },
+          ]
+        }
+      />
+    </View>
+    <Text>
+      Test
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Tab Header Render & headerText & headerStyle & beforeText 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#6200ee",
+        "elevation": 2,
+        "zIndex": 2,
+      },
+      Object {
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 0.75,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 1.5,
+      },
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    nativeID="animatedComponent"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "elevation": 0,
+        "flexDirection": "row",
+        "height": 56,
+        "marginTop": "android",
+        "paddingHorizontal": 4,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        testID="Test"
+      >
+        Test
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "backgroundColor": "red",
+              "color": "white",
+              "fontFamily": "Roboto-Regular",
+              "fontSize": 17,
+              "fontWeight": "700",
+              "letterSpacing": 0.8,
+              "marginLeft": 225,
+            },
+          ]
+        }
+      >
+        Home
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Tab Header Render & headerText 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#6200ee",
+        "elevation": 2,
+        "zIndex": 2,
+      },
+      Object {
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 0.75,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 1.5,
+      },
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    nativeID="animatedComponent"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "elevation": 0,
+        "flexDirection": "row",
+        "height": 56,
+        "marginTop": "android",
+        "paddingHorizontal": 4,
+      }
+    }
+  >
+    <View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "Roboto-Regular",
+              "fontSize": 17,
+              "fontWeight": "700",
+              "letterSpacing": 0.8,
+              "marginLeft": 225,
+            },
+          ]
+        }
+      >
+        Home
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Tab Header Render 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#6200ee",
+        "elevation": 2,
+        "zIndex": 2,
+      },
+      Object {
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 0.75,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 1.5,
+      },
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    nativeID="animatedComponent"
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "elevation": 0,
+        "flexDirection": "row",
+        "height": 56,
+        "marginTop": "android",
+        "paddingHorizontal": 4,
+      }
+    }
+  >
+    <View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "white",
+              "fontFamily": "Roboto-Regular",
+              "fontSize": 17,
+              "fontWeight": "700",
+              "letterSpacing": 0.8,
+              "marginLeft": 187.5,
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;

@@ -13,8 +13,9 @@ module.exports = {
 		'prettier',
 		'@react-native-community',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended',
 	],
-	plugins: ['json', 'prettier', 'import', '@typescript-eslint', 'unused-imports'],
+	plugins: ['json', 'prettier', 'import', '@typescript-eslint', 'unused-imports', 'testing-library',"plugin:testing-library/react"],
 	rules: {
 		'react-hooks/exhaustive-deps': 'off',
 		'prettier/prettier': [
@@ -77,6 +78,10 @@ module.exports = {
 			},
 		],
 		'react/require-default-props': [0, {forbidDefaultForRequired: true, ignoreFunctionalComponents: true}],
+		'testing-library/await-async-query': 'error',
+		'testing-library/no-await-sync-query': 'error',
+		'testing-library/no-debugging-utils': 'warn',
+		'testing-library/no-dom-import': 'off',
 	},
 	settings: {
 		'import/parsers': {
@@ -89,4 +94,12 @@ module.exports = {
 			},
 		},
 	},
+
+	overrides: [
+		{
+			// 3) Now we enable eslint-plugin-testing-library rules or preset only for matching files!
+			files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+			extends: ['plugin:testing-library/react'],
+		},
+	],
 };
