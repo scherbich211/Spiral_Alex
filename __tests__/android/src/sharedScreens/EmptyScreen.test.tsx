@@ -1,7 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { cleanup, render, waitFor } from "@testing-library/react-native";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react-native";
 import React from "react";
-import DrawerNavigator from "../../../../src/screens/HomeScreens/Drawer";
 import EmptyScreen from "../../../../src/sharedScreens/EmptyScreen";
 import { navigate } from "../../../../src/utils/navigateRef";
 
@@ -17,7 +15,7 @@ describe('Empty Screen', () => {
 	afterEach(cleanup);
 	const props = {
 		title: 'Accounts',
-		navigateBack: ()=>navigate('Home'),
+		navigateBack: ()=>navigate('Cards'),
 		screenName: 'Accounts',
 	  };
 
@@ -51,17 +49,15 @@ describe('Empty Screen', () => {
 		screen.unmount();
 	});
 
-	// it('Render & navigate', async () => {
-	// 	const screen = await waitFor(() =>
-	// 		render(
-	// 			<NavigationContainer>
-	// 				<DrawerNavigator />
-	// 			</NavigationContainer>
-	// 		),
-	// 	);
-	// 	const navigate = await screen.getByTestId('navigate-empty')
-	// 	expect(navigate).toBeTruthy();
-	// 	expect(screen).toMatchSnapshot();
-	// 	screen.unmount();
-	// });
+	it('Render & navigate buttonPress', async () => {
+		const screen = await waitFor(() =>
+			render(
+				<EmptyScreen {...props}/>
+			),
+		);
+		const btn = await screen.getByTestId('navigate-empty')
+		expect(btn).toBeDefined();
+		fireEvent(btn, 'press');
+		screen.unmount();
+	});
 });
