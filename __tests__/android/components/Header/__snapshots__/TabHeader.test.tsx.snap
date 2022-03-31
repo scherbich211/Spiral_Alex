@@ -69,6 +69,7 @@ exports[`Tab Header Render & beforeText 1`] = `
             },
           ]
         }
+        testID="undefined"
       />
     </View>
   </View>
@@ -131,6 +132,7 @@ exports[`Tab Header Render & children 1`] = `
             },
           ]
         }
+        testID="undefined"
       />
     </View>
     <Text>
@@ -210,6 +212,7 @@ exports[`Tab Header Render & headerText & headerStyle & beforeText 1`] = `
             },
           ]
         }
+        testID="undefined"
       >
         Home
       </Text>
@@ -274,6 +277,7 @@ exports[`Tab Header Render & headerText 1`] = `
             },
           ]
         }
+        testID="undefined"
       >
         Home
       </Text>
@@ -338,6 +342,7 @@ exports[`Tab Header Render 1`] = `
             },
           ]
         }
+        testID="undefined"
       />
     </View>
   </View>

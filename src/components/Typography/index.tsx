@@ -73,6 +73,7 @@ interface Props {
 	style?: TextStyle;
 	onLayout?: (event: LayoutChangeEvent) => void;
 	color?: TextStyle['color'];
+	testID?: string;
 }
 
 const Typography: React.FunctionComponent<Props> = props => {
@@ -80,7 +81,7 @@ const Typography: React.FunctionComponent<Props> = props => {
 	const {children, onLayout} = props;
 	const styles = useStyles({props: {...props}, theme});
 	return (
-		<Text style={StyleSheet.flatten([styles.main, props.style])} onLayout={onLayout}>
+		<Text testID={`${props.testID}`} style={StyleSheet.flatten([styles.main, props.style])} onLayout={onLayout}>
 			{children}
 		</Text>
 	);

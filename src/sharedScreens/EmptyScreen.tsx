@@ -29,8 +29,9 @@ const EmptyScreen: React.FC<IProps> = props => {
 			<StatusBar barStyle="dark-content" backgroundColor={theme.colors.primary} />
 			<TabHeader
 				beforeText={
-					<View>
+					<View testID="header">
 						<Icon.Button
+							testID="navigate-empty"
 							name="arrow-back"
 							size={25}
 							backgroundColor={theme.colors.primary}
@@ -43,7 +44,7 @@ const EmptyScreen: React.FC<IProps> = props => {
 			/>
 			<KeyboardAwareScrollView>
 				<View style={styles.mainPart}>
-					<Typography>{props.screenName}</Typography>
+					<Typography testID="test-screenName">{props.screenName}</Typography>
 				</View>
 			</KeyboardAwareScrollView>
 		</View>
