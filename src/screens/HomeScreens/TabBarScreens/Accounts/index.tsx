@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, StatusBar, StyleSheet, View} from 'react-native';
+import {Image, StatusBar, StyleSheet, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'react-native-paper';
@@ -63,18 +63,18 @@ const AccountsScreen: React.FC<IProps> = (props): JSX.Element => {
 							<Typography style={styles.totalAvailableCash}>Total Available Cash</Typography>
 						</View>
 						<View style={styles.viewImages}>
-							<View style={styles.viewTextImage}>
+							<TouchableOpacity style={styles.viewTextImage} onPress={() => props.navigation.navigate('Cards')}>
 								<Image source={SendImage} style={styles.horizontalImage20} />
 								<Typography style={styles.textUnderImage}>Send</Typography>
-							</View>
-							<View style={styles.viewTextImage}>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.viewTextImage} onPress={() => props.navigation.navigate('Cards')}>
 								<Image source={PayImage} style={styles.horizontalImage20} />
 								<Typography style={styles.textUnderImage}>Pay</Typography>
-							</View>
-							<View style={styles.viewTextImage}>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.viewTextImage} onPress={() => props.navigation.navigate('Cards')}>
 								<Image source={CheckImage} style={styles.horizontalImage20} />
 								<Typography style={styles.textUnderImage}>Transfer</Typography>
-							</View>
+							</TouchableOpacity>
 						</View>
 					</View>
 					<View>

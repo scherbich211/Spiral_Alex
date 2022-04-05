@@ -49,7 +49,7 @@ export const CustomDarkTheme = {
 		background: '#47495A',
 		text: '#FFFFFF',
 		placeholder: '#7D7D7D',
-		disabled: 'rgba(125, 125, 125, 0.5)',
+		disabled: 'grey',
 		input: '#47495A',
 		backdrop: '#121212',
 		content: '#32333D',
