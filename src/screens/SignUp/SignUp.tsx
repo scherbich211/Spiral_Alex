@@ -66,6 +66,7 @@ const Registration: React.FC<Props> = ({navigation}) => {
 								keyboardType="email-address"
 								error={Boolean(errors.email)}
 								style={styles.input}
+								testID="email-input"
 							/>
 						)}
 						name="email"
@@ -73,10 +74,18 @@ const Registration: React.FC<Props> = ({navigation}) => {
 				</Layout>
 				<View style={styles.buttons}>
 					<View>
-						<Button mode="contained" onPress={navigatePassword('CreatePassword')} disabled={disable}>
+						<Button
+							mode="contained"
+							onPress={navigatePassword('CreatePassword')}
+							disabled={disable}
+							testID="btn-next-registration">
 							Next
 						</Button>
-						<Button mode="text" onPress={navigateLogin('SignIn')} style={styles.buttonsTop}>
+						<Button
+							mode="text"
+							onPress={navigateLogin('SignIn')}
+							style={styles.buttonsTop}
+							testID="discard-registration">
 							I already have an account
 						</Button>
 					</View>

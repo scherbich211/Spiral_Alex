@@ -11,6 +11,9 @@ jest.mock('@unimodules/core', () => ({
 }));
 
 jest.mock('react-native-text-input-mask', () => 'TextInput');
+jest.mock('react-native-text-input-mask', () => ({
+	default: jest.fn(),
+}));
 
 jest.mock('react-native-permissions', () => {
 	return {

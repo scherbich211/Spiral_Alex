@@ -10,6 +10,7 @@ interface Props {
 	style?: ViewStyle;
 	icon?: string;
 	loading?: boolean;
+	testID?: string;
 }
 
 const getTextColor = (mode: Props['mode'], theme: ReactNativePaper.Theme): TextStyle['color'] => {
@@ -43,7 +44,12 @@ const ButtonCustom: React.FC<Props> = props => {
 	const styles = useStyles({props: {...props, mode}, theme});
 
 	return (
-		<Button mode={mode} style={StyleSheet.flatten([styles.button, style])} contentStyle={styles.contentStyle} {...rest}>
+		<Button
+			mode={mode}
+			style={StyleSheet.flatten([styles.button, style])}
+			contentStyle={styles.contentStyle}
+			{...rest}
+			testID={props.testID}>
 			{typeof children === 'string' ? <Text style={styles.text}>{children}</Text> : children}
 		</Button>
 	);

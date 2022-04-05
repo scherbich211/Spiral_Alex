@@ -81,7 +81,7 @@ const Typography: React.FunctionComponent<Props> = props => {
 	const {children, onLayout} = props;
 	const styles = useStyles({props: {...props}, theme});
 	return (
-		<Text testID={`${props.testID}`} style={StyleSheet.flatten([styles.main, props.style])} onLayout={onLayout}>
+		<Text testID={props.testID} style={StyleSheet.flatten([styles.main, props.style])} onLayout={onLayout}>
 			{children}
 		</Text>
 	);
