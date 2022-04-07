@@ -56,7 +56,7 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 	});
 
 	const onSubmit = async () => {
-		console.log(props.route.params.userInfo.email, getValues('password'));
+		// console.log(props.route.params.userInfo.email, getValues('password'));
 		setIsLoading(true);
 		await register(props.route.params.userInfo.email, getValues('password'));
 		setIsLoading(false);
@@ -86,11 +86,13 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 											error={Boolean(errors.password)}
 											style={styles.input}
 											secureTextEntry={isVisible}
+											testID="password1"
 											right={
 												<TextInput.Icon
 													name={isVisible ? 'eye' : 'eye-off'}
 													onPress={visible}
 													color={theme.colors.disabled}
+													testID="eye"
 												/>
 											}
 										/>
@@ -122,6 +124,7 @@ const CreatePassword: React.FunctionComponent<Props> = (props): JSX.Element => {
 											error={Boolean(errors.confirmPassword)}
 											style={styles.input}
 											secureTextEntry={isVisible}
+											testID="password2"
 											right={
 												<TextInput.Icon
 													name={isVisible ? 'eye' : 'eye-off'}

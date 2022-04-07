@@ -97,7 +97,6 @@ exports[`Empty Screen Render & screenName 1`] = `
             >
               <Text
                 allowFontScaling={false}
-                selectable={false}
                 style={
                   Array [
                     Object {
@@ -282,7 +281,6 @@ exports[`Empty Screen Render & title 1`] = `
             >
               <Text
                 allowFontScaling={false}
-                selectable={false}
                 style={
                   Array [
                     Object {
@@ -467,7 +465,6 @@ exports[`Empty Screen Render 1`] = `
             >
               <Text
                 allowFontScaling={false}
-                selectable={false}
                 style={
                   Array [
                     Object {

@@ -2,6 +2,7 @@ import React from 'react';
 import {waitFor, render, cleanup} from '@testing-library/react-native';
 import TabHeader from '../../../../src/components/Header/TabHeader';
 import { Text } from 'react-native';
+import Typography from '../../../../src/components/Typography';
 
 jest.mock('react-native', function () {
 	const reactNative = jest.requireActual('react-native');
@@ -35,7 +36,7 @@ describe('Tab Header', () => {
 
 	it('Render & children', async () => {
 		const Header = await waitFor(() =>
-			render(<TabHeader><Text>Test</Text></TabHeader>),
+			render(<TabHeader><Typography>Test</Typography></TabHeader>),
 
 		);
 		const children = await Header.getByText('Test')
@@ -46,7 +47,7 @@ describe('Tab Header', () => {
 
 	it('Render & beforeText', async () => {
 		const Header = await waitFor(() =>
-			render(<TabHeader beforeText={<Text testID='Test'>Test</Text>}></TabHeader>),
+			render(<TabHeader beforeText={<Typography testID='Test'>Test</Typography>}></TabHeader>),
 
 		);
 		const beforeText = await Header.queryByTestId('Test')
@@ -61,7 +62,7 @@ describe('Tab Header', () => {
 			<TabHeader 
 				headerStyle={{backgroundColor: 'red'}} 
 				headerText='Home' 
-				beforeText={<Text testID='Test'>Test</Text>}
+				beforeText={<Typography testID='Test'>Test</Typography>}
 			>
 			</TabHeader>),
 		);

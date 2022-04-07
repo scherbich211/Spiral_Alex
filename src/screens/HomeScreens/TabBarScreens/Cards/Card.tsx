@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+// eslint-disable-next-line no-shadow
 export enum Cards {
 	Card1,
 	Card2,

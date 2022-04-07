@@ -63,3 +63,5 @@ buck-out/
 .eslintcache
 .stylelintcache
 tsconfig.tsbuildinfo
+
+coverage

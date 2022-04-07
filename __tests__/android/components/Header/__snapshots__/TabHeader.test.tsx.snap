@@ -46,6 +46,22 @@ exports[`Tab Header Render & beforeText 1`] = `
       }
     >
       <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "#000000",
+              "fontFamily": "RobotoCondensed-Regular",
+              "fontSize": 14,
+              "fontWeight": "normal",
+            },
+          ]
+        }
         testID="Test"
       >
         Test
@@ -133,7 +149,24 @@ exports[`Tab Header Render & children 1`] = `
         }
       />
     </View>
-    <Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+          },
+          Object {
+            "textAlign": "left",
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "RobotoCondensed-Regular",
+            "fontSize": 14,
+            "fontWeight": "normal",
+          },
+        ]
+      }
+    >
       Test
     </Text>
   </View>
@@ -186,6 +219,22 @@ exports[`Tab Header Render & headerText & headerStyle & beforeText 1`] = `
       }
     >
       <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+            },
+            Object {
+              "textAlign": "left",
+            },
+            Object {
+              "color": "#000000",
+              "fontFamily": "RobotoCondensed-Regular",
+              "fontSize": 14,
+              "fontWeight": "normal",
+            },
+          ]
+        }
         testID="Test"
       >
         Test
