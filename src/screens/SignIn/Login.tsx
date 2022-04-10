@@ -81,6 +81,7 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 									keyboardType="email-address"
 									error={Boolean(errors.login)}
 									style={styles.input}
+									testID="email-input"
 								/>
 							)}
 							name="login"
@@ -103,6 +104,7 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 											color={theme.colors.disabled}
 										/>
 									}
+									testID="password-input"
 								/>
 							)}
 							name="password"
@@ -124,7 +126,8 @@ const LogIn: React.FC<Props> = (props): JSX.Element => {
 									loading={isLoading}
 									onPress={handleLoginPress}
 									style={styles.buttonRadius}
-									disabled={!isValid || isLoading}>
+									disabled={!isValid || isLoading}
+									testID="login-btn">
 									Login
 								</ButtonCustom>
 							</View>
