@@ -14,6 +14,8 @@ target 'Spiral' do
   )
 
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
   target 'SpiralTests' do
     inherit! :complete
     # Pods for testing
