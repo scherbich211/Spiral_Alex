@@ -27,6 +27,7 @@ const TabNavigator = () => {
 
 	return (
 		<Tab.Navigator
+			initialRouteName="Home"
 			screenOptions={{
 				tabBarActiveTintColor: theme.colors.primary,
 				tabBarInactiveTintColor: theme.colors.disabled,
@@ -44,8 +45,10 @@ const TabNavigator = () => {
 							size={25}
 							color={focused ? theme.colors.primary : theme.colors.disabled}
 							style={styles.imageTabBar}
+							testID="Home"
 						/>
 					),
+					tabBarTestID: 'Home',
 				}}
 			/>
 			<Tab.Screen
@@ -58,10 +61,10 @@ const TabNavigator = () => {
 							size={25}
 							color={focused ? theme.colors.primary : theme.colors.disabled}
 							style={styles.imageTabBar}
+							testID="Accounts"
 						/>
 					),
 				}}
-				hand-holding-heart
 			/>
 			<Tab.Screen
 				name="Giving"
@@ -73,6 +76,7 @@ const TabNavigator = () => {
 							size={25}
 							color={focused ? theme.colors.primary : theme.colors.disabled}
 							style={styles.imageTabBar}
+							testID="Giving"
 						/>
 					),
 				}}
@@ -87,6 +91,7 @@ const TabNavigator = () => {
 							size={25}
 							color={focused ? theme.colors.primary : theme.colors.disabled}
 							style={styles.imageTabBar}
+							testID="Payments"
 						/>
 					),
 				}}
@@ -101,6 +106,7 @@ const TabNavigator = () => {
 							size={25}
 							color={focused ? theme.colors.primary : theme.colors.disabled}
 							style={styles.imageTabBar}
+							testID="Cards"
 						/>
 					),
 				}}
@@ -109,7 +115,7 @@ const TabNavigator = () => {
 	);
 };
 
-const useStyles = StyleSheet.create(
+export const useStyles = StyleSheet.create(
 	(theme: ReactNativePaper.Theme): TabBarStyles => ({
 		imageTabBar: {marginTop: 10},
 		textTabBar: {fontSize: 12, marginTop: 5},

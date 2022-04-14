@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react-native";
-import { changeUserInfo, changeUserIsLoggedIn } from "../../../../src/redux/reducers/user";
-import store from "../../../../src/redux/store";
+import { changeUserInfo, changeUserIsLoggedIn } from "../../../../../src/redux/reducers/user";
+import store from "../../../../../src/redux/store";
 import { renderWithRouter } from "./helper";
 
 
@@ -11,7 +11,7 @@ jest.mock('react-native', function () {
 	return reactNative;
 });
 
-describe('Email Screen', () => {
+describe('Sign In Screen', () => {
 	const dataToChange = {email: '', password: ''};
 
 	afterEach(cleanup);

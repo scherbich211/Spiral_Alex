@@ -1,10 +1,10 @@
 import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react-native";
 import React from "react";
 import { Provider } from "react-redux";
-import { AuthProvider } from "../../../../src/AuthProvider";
-import { changeUserInfo, changeUserIsLoggedIn } from "../../../../src/redux/reducers/user";
-import store from "../../../../src/redux/store";
-import CreatePassword from "../../../../src/screens/SignUp/Password";
+import { AuthProvider } from "../../../../../src/AuthProvider";
+import { changeUserInfo, changeUserIsLoggedIn } from "../../../../../src/redux/reducers/user";
+import store from "../../../../../src/redux/store";
+import CreatePassword from "../../../../../src/screens/SignUp/Password";
 import { renderWithRouter } from "./helper";
 
 

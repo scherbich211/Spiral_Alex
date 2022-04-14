@@ -97,6 +97,7 @@ const HomeScreen: React.FC<IProps> = props => {
 								size={25}
 								backgroundColor={theme.colors.primary}
 								onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
+								testID="Drawer-open"
 							/>
 						) : (
 							<ActivityIndicator size="small" />
@@ -108,7 +109,7 @@ const HomeScreen: React.FC<IProps> = props => {
 					<UserAvatar navig={navig} />
 				</View>
 			</TabHeader>
-			<KeyboardAwareScrollView>
+			<KeyboardAwareScrollView testID="homye">
 				<DateNow />
 				<View style={styles.container}>
 					<View style={styles.partsContainer}>

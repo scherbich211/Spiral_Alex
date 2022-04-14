@@ -3,10 +3,10 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabNavigator from './TabBar';
 import CheckingStackScreen from './AdditionalScreens/Checking';
 import SavingsStackScreen from './AdditionalScreens/Saving';
+import GoodnessScreen from './AdditionalScreens/Goodness';
+import Profile from './AdditionalScreens/Profile';
 import {DrawerStackParamList} from '../../types';
 import {DrawerContent} from './DrawerComponent';
-import Profile from './AdditionalScreens/Profile';
-import GoodnessScreen from './AdditionalScreens/Goodness';
 
 const Drawer = createDrawerNavigator<DrawerStackParamList>();
 

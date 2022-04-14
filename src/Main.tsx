@@ -20,6 +20,13 @@ const persistor = persistStore(store);
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const newLocal = 1;
+const loader = (
+	<View style={{flex: newLocal}}>
+		<ActivityIndicator size="large" />
+	</View>
+);
+
 const Main = () => {
 	const {user, setUser} = useContext(AuthContext);
 	const [initializing, setInitializing] = useState(true);
@@ -32,13 +39,6 @@ const Main = () => {
 	const toggleTheme = React.useCallback(() => {
 		return dispatch(changeDarkMode(!darkMode));
 	}, [darkMode]);
-
-	const newLocal = 1;
-	const loader = (
-		<View style={{flex: newLocal}}>
-			<ActivityIndicator size="large" />
-		</View>
-	);
 
 	const preferences = React.useMemo(
 		() => ({

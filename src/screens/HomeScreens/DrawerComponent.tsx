@@ -8,25 +8,26 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeDarkMode, clearAvatar, clearProfileInfo} from '../../redux/reducers/profile';
+import {clearAvatar, clearProfileInfo} from '../../redux/reducers/profile';
 import {changeUserIsLoggedIn, clearUserInfo} from '../../redux/reducers/user';
 import {AuthContext} from '../../AuthProvider';
+import {PreferencesContext} from '../../theme';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
 	const {logout} = useContext(AuthContext);
+	const {toggleTheme, darkMode} = React.useContext(PreferencesContext);
 	const theme = useTheme();
 	const dispatch = useAppDispatch();
 	const {
 		avatar,
-		darkMode,
 		userInfo: {name},
 	} = useAppSelector(state => state.profile);
 	const {email} = useAppSelector(state => state.user.login);
 
-	const toggleTheme = () => {
-		console.log(1);
-		dispatch(changeDarkMode(!darkMode));
-	};
+	// const toggleTheme = () => {
+	// 	console.log(1);
+	// 	dispatch(changeDarkMode(!darkMode));
+	// };
 
 	const SignOut = () => {
 		dispatch(clearProfileInfo);
