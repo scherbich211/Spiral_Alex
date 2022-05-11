@@ -33,6 +33,7 @@ interface IProps {
 
 const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 	const {user} = useContext(AuthContext);
+	console.log(user.uid);
 	const theme = useTheme();
 	const styles = useStyles(theme);
 	const dispatch = useAppDispatch();
@@ -55,24 +56,6 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 		resolver: yupResolver(schema),
 		mode: 'onBlur',
 	});
-
-	const getUser = async () => {
-		setUpload(true);
-		await firestore()
-			.collection('users')
-			.doc(user.uid)
-			.get()
-			.then(documentSnapshot => {
-				if (documentSnapshot.exists) {
-					console.log('User Data', documentSnapshot.data());
-					dispatch(
-						changeProfileInfo({name: documentSnapshot.data()?.fullName, birth: documentSnapshot.data()?.userBirth}),
-					);
-					dispatch(changeAvatarRedux(documentSnapshot.data()?.userImg));
-				}
-			});
-		setUpload(false);
-	};
 
 	const submitPost = async () => {
 		const imgUrl = await uploadImage();
@@ -129,6 +112,23 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 	};
 
 	useEffect(() => {
+		const getUser = async () => {
+			// setUpload(true);
+			await firestore()
+				.collection('users')
+				.doc(user.uid)
+				.get()
+				.then(documentSnapshot => {
+					if (documentSnapshot.exists) {
+						console.log('User Data', documentSnapshot.data());
+						dispatch(
+							changeProfileInfo({name: documentSnapshot.data()?.fullName, birth: documentSnapshot.data()?.userBirth}),
+						);
+						dispatch(changeAvatarRedux(documentSnapshot.data()?.userImg));
+					}
+				});
+			setUpload(false);
+		};
 		getUser();
 	}, []);
 
@@ -145,8 +145,8 @@ const ProfileScreen: React.FC<IProps> = (props): JSX.Element => {
 
 	useEffect(() => {
 		if (!upload) {
-			setEdit(!edit);
-			if (!edit) {
+			setEdit(edit === false);
+			if (edit === true) {
 				setImage('');
 			}
 		}

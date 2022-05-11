@@ -17,7 +17,7 @@ describe('Empty Screen', () => {
 		title: 'Accounts',
 		navigateBack: ()=>navigate('Cards'),
 		screenName: 'Accounts',
-	  };
+	};
 
 	it('Render', async () => {
 		const screen = await waitFor(() =>

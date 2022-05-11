@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useContext} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Switch, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView, DrawerItem, DrawerContentComponentProps} from '@react-navigation/drawer';
-import {Avatar, Text, Title, Paragraph, Drawer, Caption, TouchableRipple, Switch, useTheme} from 'react-native-paper';
+import {Avatar, Text, Title, Paragraph, Drawer, Caption, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -62,35 +62,37 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 					</View>
 					<Drawer.Section style={styles.drawerSection}>
 						<DrawerItem
-							icon={() => <Entypo name="home" size={25} color={theme.colors.disabled} />}
+							icon={() => <Entypo name="home" size={25} color={theme.colors.disabled} testID="home" />}
 							label="Home"
 							onPress={() => {
 								props.navigation.navigate('Home');
 							}}
 						/>
 						<DrawerItem
-							icon={() => <IconMaterial name="assignment" size={25} color={theme.colors.disabled} />}
+							icon={() => <IconMaterial name="assignment" size={25} color={theme.colors.disabled} testID="Accounts" />}
 							label="Accounts"
 							onPress={() => {
 								props.navigation.navigate('Accounts');
 							}}
 						/>
 						<DrawerItem
-							icon={() => <FontAwesome5 name="hand-holding-heart" size={25} color={theme.colors.disabled} />}
+							icon={() => (
+								<FontAwesome5 name="hand-holding-heart" size={25} color={theme.colors.disabled} testID="Givings" />
+							)}
 							label="Givings"
 							onPress={() => {
 								props.navigation.navigate('Giving');
 							}}
 						/>
 						<DrawerItem
-							icon={() => <IconMaterial name="payments" size={25} color={theme.colors.disabled} />}
+							icon={() => <IconMaterial name="payments" size={25} color={theme.colors.disabled} testID="Payments" />}
 							label="Payments"
 							onPress={() => {
 								props.navigation.navigate('Payments');
 							}}
 						/>
 						<DrawerItem
-							icon={() => <Entypo name="credit-card" size={25} color={theme.colors.disabled} />}
+							icon={() => <Entypo name="credit-card" size={25} color={theme.colors.disabled} testID="Cards" />}
 							label="Cards"
 							onPress={() => {
 								props.navigation.navigate('Cards');
@@ -98,23 +100,24 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 						/>
 					</Drawer.Section>
 					<Drawer.Section title="Preferences">
-						<TouchableRipple
+						<TouchableOpacity
 							onPress={() => {
 								toggleTheme();
-							}}>
+							}}
+							testID="toggle">
 							<View style={styles.preference}>
 								<Text>Dark Theme</Text>
 								<View pointerEvents="none">
 									<Switch value={darkMode} />
 								</View>
 							</View>
-						</TouchableRipple>
+						</TouchableOpacity>
 					</Drawer.Section>
 				</View>
 			</DrawerContentScrollView>
 			<Drawer.Section style={styles.bottomDrawerSection}>
 				<DrawerItem
-					icon={({color, size}) => <Icon name="exit-to-app" color={color} size={size} />}
+					icon={({color, size}) => <Icon name="exit-to-app" color={color} size={size} testID="out" />}
 					label="Sign-Out"
 					onPress={SignOut}
 				/>

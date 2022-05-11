@@ -563,19 +563,19 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.180)
-  - Permission-AppTrackingTransparency (3.2.0):
+  - Permission-AppTrackingTransparency (3.3.1):
     - RNPermissions
-  - Permission-Camera (3.2.0):
+  - Permission-Camera (3.3.1):
     - RNPermissions
-  - Permission-MediaLibrary (3.2.0):
+  - Permission-MediaLibrary (3.3.1):
     - RNPermissions
-  - Permission-PhotoLibrary (3.2.0):
+  - Permission-PhotoLibrary (3.3.1):
     - RNPermissions
-  - Permission-PhotoLibraryAddOnly (3.2.0):
+  - Permission-PhotoLibraryAddOnly (3.3.1):
     - RNPermissions
-  - Permission-Reminders (3.2.0):
+  - Permission-Reminders (3.3.1):
     - RNPermissions
-  - Permission-StoreKit (3.2.0):
+  - Permission-StoreKit (3.3.1):
     - RNPermissions
   - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
@@ -776,7 +776,7 @@ PODS:
   - React-jsinspector (0.66.4)
   - React-logger (0.66.4):
     - glog
-  - react-native-image-picker (4.7.1):
+  - react-native-image-picker (4.7.3):
     - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -851,7 +851,7 @@ PODS:
     - React-jsi (= 0.66.4)
     - React-logger (= 0.66.4)
     - React-perflogger (= 0.66.4)
-  - RNCAsyncStorage (1.15.15):
+  - RNCAsyncStorage (1.17.3):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -874,11 +874,11 @@ PODS:
     - Firebase/Storage (= 8.14.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.3.2):
+  - RNGestureHandler (2.4.0):
     - React-Core
-  - RNPermissions (3.2.0):
+  - RNPermissions (3.3.1):
     - React-Core
-  - RNReanimated (2.6.0):
+  - RNReanimated (2.7.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -908,7 +908,7 @@ PODS:
   - RNScreens (3.13.1):
     - React-Core
     - React-RCTImage
-  - RNVectorIcons (9.0.0):
+  - RNVectorIcons (9.1.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -1175,13 +1175,13 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Permission-AppTrackingTransparency: 95c9308dd40819fa9f6830751d0ef3ea11498723
-  Permission-Camera: 53efcbb755b0e8bdf253dbb27cc7559ccfce8480
-  Permission-MediaLibrary: d35adbe2a069f2e16121fd79cf15959e86a3f74a
-  Permission-PhotoLibrary: 7bec836dcdd04a0bfb200c314f1aae06d4476357
-  Permission-PhotoLibraryAddOnly: 06fb0cdb1d35683b235ad8c464ef0ecc88859ea3
-  Permission-Reminders: 3c2d5d1e9c4b9fe90f937a23cbec9d8cf5ba52fd
-  Permission-StoreKit: ee68e7b70e9c44c2b16c6add64ddc58bd54c81c6
+  Permission-AppTrackingTransparency: 507f031f783885aad86f5754bd23edba587b2125
+  Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
+  Permission-MediaLibrary: cbc1ee191cf0fe73282d2b3f197714941783d99d
+  Permission-PhotoLibrary: ddb5a158725b29cb12e9e477e8a5f5151c66cc3c
+  Permission-PhotoLibraryAddOnly: 104e42dbe894b0fccb370be26dd1b4a3c23578eb
+  Permission-Reminders: e6c3190fd33fe2a088350533dfba8bc78c0632b3
+  Permission-StoreKit: 49cd0d1d0cec7211b1a7fefb3a810f3caa89b992
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: 4bf86c70714490bca4bf2696148638284622644b
@@ -1195,7 +1195,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
-  react-native-image-picker: 5fe0a96bef4935bbdfb02f59b910bf40d5526109
+  react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-text-input-mask: 36a546b378fadd2efe1b7484a859d34bc2c80395
@@ -1211,21 +1211,21 @@ SPEC CHECKSUMS:
   React-RCTVibration: e3ffca672dd3772536cb844274094b0e2c31b187
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
-  RNCAsyncStorage: 0bef6a21517c0254bd6bd59a3672963abfa0d18e
+  RNCAsyncStorage: 005c0e2f09575360f142d0d1f1f15e4ec575b1af
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBAnalytics: 776634be8c549e920df68c67907506805efcb6ae
   RNFBApp: 097a31d372b3db15b41c7a1a5c429433b0609e12
   RNFBAuth: 85b7ad91e3783dfde011702b2b747b1fd7be7234
   RNFBFirestore: 06d06485901708c3b2c8f569433058911a82c121
   RNFBStorage: c5e7b02c06014908fa70261836a05fa0ef476d45
-  RNGestureHandler: 6e757e487a4834e7280e98e9bac66d2d9c575e9c
-  RNPermissions: f7ebe52db07c00901127966ca080b4ec6a6ceb0a
-  RNReanimated: 8135778ca3fa9dd6cfdd74d0218106131394e2ec
+  RNGestureHandler: 50e6ffee79932d14ea747d4ea4cc99aac0f24e86
+  RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
+  RNReanimated: a05a0a5ba7c20a0be99fa15d18d0fbf21b025a57
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 58119f8d3e5658632d351ed33307715157955c21
+PODFILE CHECKSUM: 45391acb09c93c751a232d6734faeafa216eb1d3
 
 COCOAPODS: 1.11.2

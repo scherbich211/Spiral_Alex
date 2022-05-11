@@ -1,7 +1,6 @@
 import React from 'react';
 import {waitFor, render, cleanup} from '@testing-library/react-native';
 import TabHeader from '../../../../src/components/Header/TabHeader';
-import { Text } from 'react-native';
 import Typography from '../../../../src/components/Typography';
 
 jest.mock('react-native', function () {

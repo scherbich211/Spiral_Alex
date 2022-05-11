@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StatusBar, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ActivityIndicator, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DrawerActions} from '@react-navigation/native';
@@ -42,7 +42,6 @@ const HomeScreen: React.FC<IProps> = props => {
 	const theme = useTheme();
 	const styles = useStyles(theme);
 	const dispatch = useAppDispatch();
-	const [isLoading, setIsLoading] = useState(false);
 	const [data, setData] = useState<Data>({
 		name: '',
 		DoB: '',
@@ -64,7 +63,6 @@ const HomeScreen: React.FC<IProps> = props => {
 
 	useEffect(() => {
 		const getUser = async () => {
-			setIsLoading(true);
 			await firestore()
 				.collection('users')
 				.doc(user.uid)
@@ -80,7 +78,6 @@ const HomeScreen: React.FC<IProps> = props => {
 						});
 					}
 				});
-			setIsLoading(false);
 		};
 		getUser();
 	}, []);
@@ -91,17 +88,13 @@ const HomeScreen: React.FC<IProps> = props => {
 			<TabHeader
 				beforeText={
 					<View>
-						{!isLoading ? (
-							<Icon.Button
-								name="ios-menu"
-								size={25}
-								backgroundColor={theme.colors.primary}
-								onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
-								testID="Drawer-open"
-							/>
-						) : (
-							<ActivityIndicator size="small" />
-						)}
+						<Icon.Button
+							name="ios-menu"
+							size={25}
+							backgroundColor={theme.colors.primary}
+							onPress={() => props.navigation.dispatch(DrawerActions.openDrawer())}
+							testID="Drawer-open"
+						/>
 					</View>
 				}
 				headerText="Spiral">

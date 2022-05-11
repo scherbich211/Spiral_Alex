@@ -53,6 +53,7 @@ const CheckingScreen: React.FC<IProps> = (props): JSX.Element => {
 							size={25}
 							backgroundColor={theme.colors.primary}
 							onPress={() => props.navigation.goBack()}
+							testID="back"
 						/>
 					</View>
 				}
